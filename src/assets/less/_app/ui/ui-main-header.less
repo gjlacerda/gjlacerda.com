@@ -1,0 +1,87 @@
+.main-header
+{
+    position: fixed;
+    width: 100%;
+    top: @bk-distance-edge-md;
+
+    .header-content
+    {
+        position: relative;
+    }
+
+    .header-nav
+    {
+        ul
+        {
+            display: flex;
+        }
+
+        li
+        {
+            display: inline-flex;
+
+            &:not(:last-child)
+            {
+                margin-right: 30px;
+            }
+
+            &.active
+            {
+                a
+                {
+                    border-bottom: 3px solid @color-text;
+                }
+            }
+
+            a
+            {
+                padding-bottom: 5px;
+            }
+        }
+    }
+
+    .header-options
+    {
+        position: absolute;
+        right: -12px;
+        top: 0;
+        cursor: pointer;
+        padding: 12px;
+
+        &:hover
+        {
+            .line
+            {
+                opacity: 0.7;
+            }
+        }
+
+        .line
+        {
+            transition: opacity 0.1s ease-in-out;
+        }
+
+        .line,
+        .line:before,
+        .line:after
+        {
+            content: "";
+            display: block;
+            width: 24px;
+            height: 3px;
+            background-color: @color-text;
+            position: relative;
+            border-radius: 1px;
+        }
+
+        .line:after
+        {
+            top: 4px;
+        }
+
+        .line:before
+        {
+            top: -7px;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+html
+{
+    height: 100%;
+}
+
+body
+{
+    height: 100%;
+    color: @color-text;
+    font-size: 18px;
+    font-family: @font-gtwalsheim;
+    font-weight: 300;
+}
+
+main
+{
+    height: 100%;
+}
+
+ul
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a
+{
+    color: @color-text;
+    text-decoration: none;
+    transition: opacity 0.1s ease-in-out;
+
+    &:hover
+    {
+        opacity: 0.7;
+    }
+}
+
+h1
+{
+    margin: 0;
+    line-height: 1;
+}
+
+p
+{
+    margin: 0;
+    line-height: 1.4;
+}
+
+@import "site-variables";
+@import "site-fonts";

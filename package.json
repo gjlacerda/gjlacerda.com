@@ -1,0 +1,22 @@
+{
+  "name": "gjlacerda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gjlacerda@bitbucket.org/gjlacerda/gjlacerda.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/gjlacerda/gjlacerda#readme",
+  "devDependencies": {
+    "fs": "0.0.1-security",
+    "gulp-concat": "^2.6.0",
+    "gulp-less": "^3.1.0",
+    "gulp-watch": "^4.3.10"
+  }
+}
