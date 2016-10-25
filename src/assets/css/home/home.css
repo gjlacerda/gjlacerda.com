@@ -11,4 +11,8 @@
 }
 .home .home-welcome p {
   max-width: 600px;
+  margin-bottom: 15px;
+}
+.home .home-welcome a {
+  text-decoration: underline;
 }
