@@ -2,7 +2,7 @@
 {
     position: fixed;
     width: 100%;
-    top: @bk-distance-edge-md;
+    top: @breakpoint-edge-md;
 
     .header-content
     {
@@ -20,6 +20,11 @@
         {
             display: inline-flex;
 
+            a
+            {
+                padding-bottom: 5px;
+            }
+
             &:not(:last-child)
             {
                 margin-right: 30px;
@@ -32,34 +37,17 @@
                     border-bottom: 3px solid @color-text;
                 }
             }
-
-            a
-            {
-                padding-bottom: 5px;
-            }
         }
     }
 
-    .header-options
+    &+.header-options
     {
         position: absolute;
-        right: -12px;
-        top: 0;
+        top: calc(@breakpoint-edge-md - 2px);
+        right: 73px;
         cursor: pointer;
         padding: 12px;
-
-        &:hover
-        {
-            .line
-            {
-                opacity: 0.6;
-            }
-        }
-
-        .line
-        {
-            transition: opacity 0.2s ease-out;
-        }
+        z-index: 6;
 
         .line,
         .line:before,
@@ -72,6 +60,7 @@
             background-color: @color-text;
             position: relative;
             border-radius: 1px;
+            transition: background-color 0.5s ease-out, transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
         }
 
         .line:after
@@ -82,6 +71,26 @@
         .line:before
         {
             top: -7px;
+        }
+
+        &.active
+        {
+            .line
+            {
+                background-color: transparent;
+
+                &:before
+                {
+                    background-color: white;
+                    transform: translateY(7px) rotate(-45deg);
+                }
+
+                &:after
+                {
+                    background-color: white;
+                    transform: translateY(-7px) rotate(45deg);
+                }
+            }
         }
     }
 }

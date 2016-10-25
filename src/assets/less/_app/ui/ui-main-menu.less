@@ -1,0 +1,49 @@
+.main-menu
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: fade(black, 95%);
+    z-index: 5;
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+    li
+    {
+        text-align: center;
+
+        a
+        {
+            font-size: 32px;
+            color: white;
+        }
+
+        &:not(:last-child)
+        {
+            margin-bottom: 20px;
+        }
+
+        &.active
+        {
+            a
+            {
+                border-bottom: 4px solid white;
+            }
+        }
+    }
+
+    &.active
+    {
+        transform: translateX(0);
+    }
+}
+
+body.menu-active
+{
+
+}
