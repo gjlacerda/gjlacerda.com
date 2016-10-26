@@ -11,6 +11,7 @@
 </head>
 <body>
 
+    <!-- Header principal -->
     <header class="main-header">
         <div class="header-content container">
 
@@ -32,29 +33,44 @@
     </div>
 
     <main>
-        <section class="home container">
 
-            <!-- Welcome-->
+        <section class="home container">
             <div class="home-welcome">
                 <h1>Hello.</h1>
                 <p>My name is Guilherme Lacerda. I'm a Brazillian Front-End Developer, currently working at <a href="http://www.sexlog.com" target="_blank">Sexlog</a>.</p>
             </div>
-
         </section>
+
     </main>
 
     <div class="main-menu">
-        <ul>
-            <li class="active">
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#">Resume</a>
-            </li>
-        </ul>
+        <div class="menu-content">
+
+            <!-- Links navegação -->
+            <nav class="menu-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Resume</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Idioma -->
+            <div class="menu-language">
+                <label for="menu-language">Language:</label>
+                <select id="menu-language">
+                    <option value="">Inglês</option>
+                    <!--<option value="">Português</option>-->
+                </select>
+            </div>
+
+        </div>
     </div>
 
     <footer class="main-footer">

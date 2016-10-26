@@ -34,22 +34,12 @@ p {
 }
 @font-face {
   font-family: 'GTWalsheim';
-  src: local('../../fonts/GT-Walsheim-Pro-Thin.otf'), url('../../fonts/GT-Walsheim-Pro-Ultra-Light.otf');
-  font-weight: 100;
-}
-@font-face {
-  font-family: 'GTWalsheim';
-  src: local('../../fonts/GT-Walsheim-Pro-Thin.otf'), url('../../fonts/GT-Walsheim-Pro-Thin.otf');
-  font-weight: 200;
-}
-@font-face {
-  font-family: 'GTWalsheim';
-  src: local('../../fonts/GT-Walsheim-Pro-Thin.otf'), url('../../fonts/GT-Walsheim-Pro-Regular.otf');
+  src: local('../../fonts/gt-walsheim-web.woff'), url('../../fonts/gt-walsheim-web.woff');
   font-weight: 300;
 }
 @font-face {
   font-family: 'GTWalsheim';
-  src: local('../../fonts/GT-Walsheim-Pro-Thin.otf'), url('../../fonts/GT-Walsheim-Pro-Bold.otf');
+  src: local('../../fonts/gt-walsheim-bold-web.woff'), url('../../fonts/gt-walsheim-bold-web.woff');
   font-weight: 400;
 }
 .container {
@@ -116,10 +106,15 @@ p {
   background-color: white;
   transform: translateY(-7px) rotate(45deg);
 }
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .main-menu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -130,21 +125,55 @@ p {
   transform: translateX(100%);
   transition: transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
-.main-menu li {
+.main-menu .menu-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+.main-menu .menu-nav {
+  display: none;
+  margin-bottom: 80px;
+}
+.main-menu .menu-nav li {
   text-align: center;
 }
-.main-menu li a {
+.main-menu .menu-nav li a {
   font-size: 32px;
   color: white;
 }
-.main-menu li:not(:last-child) {
+.main-menu .menu-nav li:not(:last-child) {
   margin-bottom: 20px;
 }
-.main-menu li.active a {
+.main-menu .menu-nav li.active a {
   border-bottom: 4px solid white;
+}
+.main-menu .menu-language label {
+  font-size: 22px;
+  color: white;
+}
+.main-menu .menu-language select {
+  width: 115px;
+  height: 34px;
+  margin-left: 20px;
+  font-size: 16px;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+}
+.main-menu .menu-language select:focus {
+  outline: none;
 }
 .main-menu.active {
   transform: translateX(0);
+}
+body.menu-active .main-menu .menu-content {
+  opacity: 0;
+  animation: fade 0.5s forwards;
+  animation-delay: 0.5s;
 }
 .main-footer {
   position: fixed;
