@@ -19,7 +19,7 @@
 }
 @media (min-width: 600px) {
   .home .home-welcome h1 {
-    text-indent: -10px;
+    text-indent: -8px;
     font-size: 120px;
   }
   .home .home-welcome p {

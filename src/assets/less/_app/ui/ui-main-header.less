@@ -104,13 +104,20 @@
         }
     }
 
+    @media (min-width: @screen-sm)
+    {
+        &+.header-options
+        {
+            right: 5%;
+        }
+    }
+
     @media (min-width: @screen-md)
     {
         top: @breakpoint-edge-md;
 
         &+.header-options
         {
-            right: 60px;
             top: calc(@breakpoint-edge-md - 2px);
         }
     }
@@ -121,7 +128,6 @@
 
         &+.header-options
         {
-            right: 85px;
             top: calc(@breakpoint-edge-lg - 2px);
         }
     }
