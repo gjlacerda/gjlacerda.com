@@ -4,15 +4,25 @@
   height: 100%;
 }
 .home .home-welcome h1 {
-  font-size: 150px;
-  text-indent: -10px;
+  font-size: 90px;
+  text-indent: -6px;
   letter-spacing: -5px;
   margin-bottom: 5px;
 }
 .home .home-welcome p {
   max-width: 600px;
   margin-bottom: 15px;
+  font-size: 16px;
 }
 .home .home-welcome a {
   text-decoration: underline;
+}
+@media (min-width: 600px) {
+  .home .home-welcome h1 {
+    text-indent: -10px;
+    font-size: 120px;
+  }
+  .home .home-welcome p {
+    font-size: 18px;
+  }
 }

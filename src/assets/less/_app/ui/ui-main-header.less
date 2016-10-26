@@ -2,7 +2,7 @@
 {
     position: fixed;
     width: 100%;
-    top: @breakpoint-edge-md;
+    top: @breakpoint-edge-sm;
 
     .header-content
     {
@@ -18,7 +18,7 @@
 
         li
         {
-            display: inline-flex;
+            display: none;
 
             a
             {
@@ -32,6 +32,8 @@
 
             &.active
             {
+                display: inline-flex;
+
                 a
                 {
                     border-bottom: 3px solid @color-text;
@@ -43,10 +45,10 @@
     &+.header-options
     {
         position: absolute;
-        top: calc(@breakpoint-edge-md - 2px);
-        right: 73px;
+        top: calc(@breakpoint-edge-sm - 2px);
+        right: 20px;
         cursor: pointer;
-        padding: 12px;
+        padding: 12px 0 12px 12px;
         z-index: 6;
 
         .line,
@@ -91,6 +93,36 @@
                     transform: translateY(-7px) rotate(45deg);
                 }
             }
+        }
+    }
+
+    @media (min-width: @screen-xs)
+    {
+        .header-nav li
+        {
+            display: inline-flex;
+        }
+    }
+
+    @media (min-width: @screen-md)
+    {
+        top: @breakpoint-edge-md;
+
+        &+.header-options
+        {
+            right: 60px;
+            top: calc(@breakpoint-edge-md - 2px);
+        }
+    }
+
+    @media (min-width: @screen-lg)
+    {
+        top: @breakpoint-edge-lg;
+
+        &+.header-options
+        {
+            right: 85px;
+            top: calc(@breakpoint-edge-lg - 2px);
         }
     }
 }

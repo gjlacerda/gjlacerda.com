@@ -36,7 +36,7 @@
 
     .menu-nav
     {
-        display: none;
+        display: block;
         margin-bottom: 80px;
 
         li
@@ -45,7 +45,7 @@
 
             a
             {
-                font-size: 32px;
+                font-size: 28px;
                 color: white;
             }
 
@@ -92,6 +92,14 @@
     &.active
     {
         transform: translateX(0);
+    }
+
+    @media (min-width: @screen-xs)
+    {
+        .menu-nav
+        {
+            display: none;
+        }
     }
 }
 

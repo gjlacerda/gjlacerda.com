@@ -2,7 +2,7 @@
 {
     position: fixed;
     width: 100%;
-    bottom: @breakpoint-edge-md;
+    bottom: @breakpoint-edge-sm;
 
     .footer-social
     {
@@ -12,10 +12,10 @@
         .icon
         {
             display: block;
-            
+
             &:not(:last-child)
             {
-                margin-right: 40px;
+                margin-right: 30px;
             }
 
             &:hover
@@ -50,5 +50,23 @@
                 fill: #ca9601;
             }
         }
+    }
+
+    @media (min-width: @screen-sm)
+    {
+        .footer-social .icon:not(:last-child)
+        {
+            margin-right: 40px;
+        }
+    }
+
+    @media (min-width: @screen-md)
+    {
+        bottom: @breakpoint-edge-md;
+    }
+
+    @media (min-width: @screen-lg)
+    {
+        bottom: @breakpoint-edge-lg;
     }
 }
