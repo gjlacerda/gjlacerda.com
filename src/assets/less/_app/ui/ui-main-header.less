@@ -74,26 +74,6 @@
         {
             top: -7px;
         }
-
-        &.active
-        {
-            .line
-            {
-                background-color: transparent;
-
-                &:before
-                {
-                    background-color: white;
-                    transform: translateY(7px) rotate(-45deg);
-                }
-
-                &:after
-                {
-                    background-color: white;
-                    transform: translateY(-7px) rotate(45deg);
-                }
-            }
-        }
     }
 
     @media (min-width: @screen-xs)
@@ -129,6 +109,29 @@
         &+.header-options
         {
             top: calc(@breakpoint-edge-lg - 2px);
+        }
+    }
+}
+
+body.menu-active
+{
+    .header-options
+    {
+        .line
+        {
+            background-color: transparent;
+
+            &:before
+            {
+                background-color: white;
+                transform: translateY(7px) rotate(-45deg);
+            }
+
+            &:after
+            {
+                background-color: white;
+                transform: translateY(-7px) rotate(45deg);
+            }
         }
     }
 }

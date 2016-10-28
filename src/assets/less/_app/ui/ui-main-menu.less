@@ -89,11 +89,6 @@
         }
     }
 
-    &.active
-    {
-        transform: translateX(0);
-    }
-
     @media (min-width: @screen-xs)
     {
         .menu-nav
@@ -105,10 +100,15 @@
 
 body.menu-active
 {
-    .main-menu .menu-content
+    .main-menu
     {
-        opacity: 0;
-        animation: fade 0.5s forwards;
-        animation-delay: 0.5s;
+        transform: translateX(0);
+
+        .menu-content
+        {
+            opacity: 0;
+            animation: fade 0.5s forwards;
+            animation-delay: 0.5s;
+        }
     }
 }
