@@ -2,17 +2,33 @@
 
     'use strict';
 
-    let $headerOptions = document.querySelector('.header-options'),
-        $body;
+    /**
+     * Elemento .header-options
+     * @type {Element}
+     */
+    let $headerOptions = document.querySelector('.header-options');
 
-    $headerOptions.addEventListener('click', function() {
+    /**
+     * Elemento body
+     */
+    let $body = null;
 
-        if (!$body) {
-            $body = document.querySelector('body');
-        }
+    /**
+     * Inicialização
+     */
+    function init() {
 
-        $body.classList.toggle('menu-active');
+        $headerOptions.addEventListener('click', function() {
 
-    });
+            if (!$body) {
+                $body = document.querySelector('body');
+            }
+
+            $body.classList.toggle('menu-active');
+
+        });
+    }
+
+    init();
 
 })();

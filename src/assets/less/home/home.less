@@ -29,6 +29,60 @@
         }
     }
 
+    .home-footer
+    {
+        position: absolute;
+        bottom: @breakpoint-edge-sm;
+
+        .footer-social
+        {
+            display: flex;
+            align-items: center;
+
+            .icon
+            {
+                display: block;
+
+                &:not(:last-child)
+                {
+                    margin-right: 30px;
+                }
+
+                &:hover
+                {
+                    opacity: 1;
+                }
+
+                svg
+                {
+                    display: block;
+                    transition: fill 0.2s ease-out;
+                }
+            }
+
+            .icon-facebook:hover svg
+            {
+                fill: #3b5998;
+            }
+
+            .icon-linkedin:hover svg
+            {
+                fill: #0177b5;
+            }
+
+            .icon-github
+            {
+                position: relative;
+                top: 2px;
+
+                &:hover svg
+                {
+                    fill: #ca9601;
+                }
+            }
+        }
+    }
+
     @media (min-width: @screen-sm)
     {
         .home-welcome
@@ -43,6 +97,27 @@
             {
                 font-size: 18px;
             }
+        }
+
+        .home-footer .footer-social .icon:not(:last-child)
+        {
+            margin-right: 40px;
+        }
+    }
+
+    @media (min-width: @screen-md)
+    {
+        .home-footer
+        {
+            bottom: @breakpoint-edge-md;
+        }
+    }
+
+    @media (min-width: @screen-lg)
+    {
+        .home-footer
+        {
+            bottom: @breakpoint-edge-lg;
         }
     }
 }

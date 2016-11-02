@@ -17,6 +17,40 @@
 .home .home-welcome a {
   text-decoration: underline;
 }
+.home .home-footer {
+  position: absolute;
+  bottom: 40px;
+}
+.home .home-footer .footer-social {
+  display: flex;
+  align-items: center;
+}
+.home .home-footer .footer-social .icon {
+  display: block;
+}
+.home .home-footer .footer-social .icon:not(:last-child) {
+  margin-right: 30px;
+}
+.home .home-footer .footer-social .icon:hover {
+  opacity: 1;
+}
+.home .home-footer .footer-social .icon svg {
+  display: block;
+  transition: fill 0.2s ease-out;
+}
+.home .home-footer .footer-social .icon-facebook:hover svg {
+  fill: #3b5998;
+}
+.home .home-footer .footer-social .icon-linkedin:hover svg {
+  fill: #0177b5;
+}
+.home .home-footer .footer-social .icon-github {
+  position: relative;
+  top: 2px;
+}
+.home .home-footer .footer-social .icon-github:hover svg {
+  fill: #ca9601;
+}
 @media (min-width: 600px) {
   .home .home-welcome h1 {
     text-indent: -8px;
@@ -24,5 +58,18 @@
   }
   .home .home-welcome p {
     font-size: 18px;
+  }
+  .home .home-footer .footer-social .icon:not(:last-child) {
+    margin-right: 40px;
+  }
+}
+@media (min-width: 992px) {
+  .home .home-footer {
+    bottom: 60px;
+  }
+}
+@media (min-width: 1415px) {
+  .home .home-footer {
+    bottom: 80px;
   }
 }

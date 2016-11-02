@@ -78,7 +78,7 @@ p {
   border-bottom: 3px solid #222;
 }
 .main-header + .header-options {
-  position: absolute;
+  position: fixed;
   top: calc(38px);
   right: 20px;
   cursor: pointer;
@@ -213,54 +213,4 @@ body.menu-active .main-menu .menu-content {
   opacity: 0;
   animation: fade 0.5s forwards;
   animation-delay: 0.5s;
-}
-.main-footer {
-  position: fixed;
-  width: 100%;
-  bottom: 40px;
-}
-.main-footer .footer-social {
-  display: flex;
-  align-items: center;
-}
-.main-footer .footer-social .icon {
-  display: block;
-}
-.main-footer .footer-social .icon:not(:last-child) {
-  margin-right: 30px;
-}
-.main-footer .footer-social .icon:hover {
-  opacity: 1;
-}
-.main-footer .footer-social .icon svg {
-  display: block;
-  transition: fill 0.2s ease-out;
-}
-.main-footer .footer-social .icon-facebook:hover svg {
-  fill: #3b5998;
-}
-.main-footer .footer-social .icon-linkedin:hover svg {
-  fill: #0177b5;
-}
-.main-footer .footer-social .icon-github {
-  position: relative;
-  top: 2px;
-}
-.main-footer .footer-social .icon-github:hover svg {
-  fill: #ca9601;
-}
-@media (min-width: 600px) {
-  .main-footer .footer-social .icon:not(:last-child) {
-    margin-right: 40px;
-  }
-}
-@media (min-width: 992px) {
-  .main-footer {
-    bottom: 60px;
-  }
-}
-@media (min-width: 1415px) {
-  .main-footer {
-    bottom: 80px;
-  }
 }
