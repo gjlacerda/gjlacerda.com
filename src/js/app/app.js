@@ -1,5 +1,19 @@
 (() => {
 
+    'use strict';
+
+    /**
+     * Indica se está carregando uma página
+     * @type {boolean}
+     */
+    let loadingPage = false;
+
+    /**
+     * Página atual
+     * @type {number}
+     */
+    let page = 0;
+
     /**
     * Elementos Section
     * @type {NodeList}
@@ -7,21 +21,51 @@
     let $sections = document.querySelectorAll('section');
 
     /**
-     * Retorna a altura da tela
-     * @returns {string}
+     * Elemento Main
+     * @type {Element}
      */
-    function getWindowHeight() {
-        return `${window.innerHeight}px`;
+    let $main = document.querySelector('main');
+
+    /**
+     * Seta a altura dos elementos com a altura da tela
+     */
+    function setMaxHeight() {
+
+        let windowHeight = `${window.innerHeight}px`;
+
+        $sections.forEach(section => {
+            section.style.height = windowHeight;
+        });
+
+        $main.style.height = windowHeight;
     }
 
     /**
-     * Seta a altura dos elementos Section com a altura da tela
+     * Troca de página de acordo com a direção do scroll
+     * @param event
      */
-    function setSectionsHeight() {
+    function changePage(event) {
+        console.log(event);
+        let windowHeight = -window.innerHeight;
+
+        // Evita que mexa a tela
+        event.preventDefault();
+
+        if (loadingPage) {
+            return false;
+        }
+
+        loadingPage = true;
+        page        = event.deltaY > 0 ? ++page : --page;
 
         $sections.forEach(section => {
-            section.style.height = getWindowHeight();
+            section.style.transform = `translateY(${windowHeight * page}px)`;
         });
+
+        setTimeout(() => {
+            loadingPage = false;
+            event.canceled = true;
+        }, 2000);
     }
 
     /**
@@ -29,12 +73,15 @@
      */
     function init() {
 
-        window.addEventListener('resize', () => {
-            setSectionsHeight();
+        // Recalcula o tamanho máximo ao dar resize
+        window.addEventListener('resize', setMaxHeight);
+
+        // Troca de página
+        $main.addEventListener('mousewheel', event => {
+            changePage(event);
         });
 
-        setSectionsHeight();
-
+        setMaxHeight();
     }
     
     init();

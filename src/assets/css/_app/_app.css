@@ -7,9 +7,18 @@ body {
   font-size: 18px;
   font-family: GTWalsheim, helvetica, arial, sans-serif;
   font-weight: 300;
+  background-image: url(../../images/me.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position-y: -297px;
 }
 main {
   height: 100%;
+  overflow-y: hidden;
+}
+section {
+  transition: transform 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 ul {
   margin: 0;
@@ -34,6 +43,11 @@ p {
 }
 @font-face {
   font-family: 'GTWalsheim';
+  src: local('../../fonts/gt-walsheim-light-web.woff'), url('../../fonts/gt-walsheim-light-web.woff');
+  font-weight: 200;
+}
+@font-face {
+  font-family: 'GTWalsheim';
   src: local('../../fonts/gt-walsheim-web.woff'), url('../../fonts/gt-walsheim-web.woff');
   font-weight: 300;
 }
@@ -55,6 +69,7 @@ p {
   position: fixed;
   width: 100%;
   top: 40px;
+  z-index: 5;
 }
 .main-header .header-content {
   position: relative;
