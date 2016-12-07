@@ -45,8 +45,9 @@
      * @param event
      */
     function changePage(event) {
-        console.log(event);
-        let windowHeight = -window.innerHeight;
+
+        let windowHeight = -window.innerHeight,
+            direction    = event.deltaY > 0 ? 'down' : 'up';
 
         // Evita que mexa a tela
         event.preventDefault();
@@ -55,8 +56,12 @@
             return false;
         }
 
+        if ((page === 0 && direction === 'up') || (page === $sections.length - 1 && direction === 'down')) {
+            return false;
+        }
+
         loadingPage = true;
-        page        = event.deltaY > 0 ? ++page : --page;
+        page        = direction === 'down' ? ++page : --page;
 
         $sections.forEach(section => {
             section.style.transform = `translateY(${windowHeight * page}px)`;
@@ -65,7 +70,7 @@
         setTimeout(() => {
             loadingPage = false;
             event.canceled = true;
-        }, 2000);
+        }, 1500);
     }
 
     /**

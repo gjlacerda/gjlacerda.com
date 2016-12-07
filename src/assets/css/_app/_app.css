@@ -7,11 +7,6 @@ body {
   font-size: 18px;
   font-family: GTWalsheim, helvetica, arial, sans-serif;
   font-weight: 300;
-  background-image: url(../../images/me.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-position-y: -297px;
 }
 main {
   height: 100%;

@@ -2,6 +2,10 @@
   display: flex;
   align-items: center;
   height: 100%;
+  background-image: url(../../images/me.compress-min.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .home .home-welcome h1 {
   font-size: 90px;
