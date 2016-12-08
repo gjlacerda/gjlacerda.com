@@ -23,7 +23,20 @@
 
             a
             {
+                position: relative;
                 padding-bottom: 5px;
+
+                &:after
+                {
+                    content: "";
+                    position: absolute;
+                    display: block;
+                    width: 0;
+                    height: 3px;
+                    background-color: @color-text;
+                    bottom: -3px;
+                    transition: width 0.3s ease-in-out;
+                }
             }
 
             &:not(:last-child)
@@ -35,9 +48,9 @@
             {
                 display: inline-flex;
 
-                a
+                a:after
                 {
-                    border-bottom: 3px solid @color-text;
+                    width: 100%;
                 }
             }
         }

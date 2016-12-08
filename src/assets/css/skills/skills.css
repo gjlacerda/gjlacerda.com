@@ -1,0 +1,58 @@
+.skills {
+  display: flex;
+  align-items: center;
+  background-color: #3a97ff;
+}
+.skills .skills-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.skills .skills-jobs {
+  flex-basis: 40%;
+  margin-right: 100px;
+}
+.skills .skills-jobs h1 {
+  font-size: 90px;
+  text-indent: -6px;
+  letter-spacing: -5px;
+  margin-bottom: 5px;
+}
+.skills .skills-jobs p {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+.skills .skills-bars {
+  flex-basis: 50%;
+}
+.skills .skills-bars ul li {
+  display: flex;
+  align-items: center;
+}
+.skills .skills-bars ul li:not(:last-child) {
+  margin-bottom: 25px;
+}
+.skills .skills-bars .label {
+  display: inline-block;
+  font-size: 14px;
+  width: 100px;
+  margin-right: 30px;
+  text-align: right;
+  text-transform: uppercase;
+}
+.skills .skills-bars .bar {
+  width: 100%;
+  display: inline-block;
+  background-color: #45ff4d;
+  height: 28px;
+  border-radius: 3px;
+}
+@media (min-width: 600px) {
+  .skills .skills-jobs h1 {
+    text-indent: -8px;
+    font-size: 120px;
+  }
+  .skills .skills-jobs p {
+    font-size: 18px;
+  }
+}

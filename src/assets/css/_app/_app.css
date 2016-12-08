@@ -76,7 +76,18 @@ p {
   display: none;
 }
 .main-header .header-nav li a {
+  position: relative;
   padding-bottom: 5px;
+}
+.main-header .header-nav li a:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 3px;
+  background-color: #222;
+  bottom: -3px;
+  transition: width 0.3s ease-in-out;
 }
 .main-header .header-nav li:not(:last-child) {
   margin-right: 30px;
@@ -84,8 +95,8 @@ p {
 .main-header .header-nav li.active {
   display: inline-flex;
 }
-.main-header .header-nav li.active a {
-  border-bottom: 3px solid #222;
+.main-header .header-nav li.active a:after {
+  width: 100%;
 }
 .main-header + .header-options {
   position: fixed;

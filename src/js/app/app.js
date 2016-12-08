@@ -27,6 +27,12 @@
     let $main = document.querySelector('main');
 
     /**
+     * Navbar principal
+     * @type {Element}
+     */
+    let $liHeaderNavbar = document.querySelectorAll('.header-nav li');
+
+    /**
      * Seta a altura dos elementos com a altura da tela
      */
     function setMaxHeight() {
@@ -71,6 +77,23 @@
             loadingPage = false;
             event.canceled = true;
         }, 1500);
+
+        checkNavbar(page);
+    }
+
+    /**
+     * Marca o item da navbar como ativo
+     * @param index
+     */
+    function checkNavbar(index) {
+
+        $liHeaderNavbar.forEach((li, i) => {
+
+            let method = index === i ? 'add' : 'remove';
+
+            li.classList[method]('active');
+
+        });
     }
 
     /**

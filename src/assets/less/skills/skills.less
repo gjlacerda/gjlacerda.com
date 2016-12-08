@@ -1,0 +1,90 @@
+@import (reference) "../_app/site/site-variables";
+
+.skills
+{
+    display: flex;
+    align-items: center;
+    background-color: #3a97ff;
+
+    .skills-container
+    {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .skills-jobs
+    {
+        flex-basis: 40%;
+        margin-right: 100px;
+
+        h1
+        {
+            font-size: 90px;
+            text-indent: -6px;
+            letter-spacing: -5px;
+            margin-bottom: 5px;
+        }
+
+        p
+        {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+    }
+
+    .skills-bars
+    {
+        flex-basis: 50%;
+
+        ul
+        {
+            li
+            {
+                display: flex;
+                align-items: center;
+
+                &:not(:last-child)
+                {
+                    margin-bottom: 25px;
+                }
+            }
+        }
+
+        .label
+        {
+            display: inline-block;
+            font-size: 14px;
+            width: 100px;
+            margin-right: 30px;
+            text-align: right;
+            text-transform: uppercase;
+        }
+
+        .bar
+        {
+            width: 100%;
+            display: inline-block;
+            background-color: #45ff4d;
+            height: 28px;
+            border-radius: 3px;
+        }
+    }
+
+    @media (min-width: @screen-sm)
+    {
+        .skills-jobs
+        {
+            h1
+            {
+                text-indent: -8px;
+                font-size: 120px;
+            }
+
+            p
+            {
+                font-size: 18px;
+            }
+        }
+    }
+}
