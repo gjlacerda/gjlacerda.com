@@ -32,7 +32,7 @@
   font-size: 90px;
   text-indent: -6px;
   letter-spacing: -5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 .home .home-welcome p {
   max-width: 600px;
@@ -83,7 +83,7 @@
     letter-spacing: -8px;
   }
   .home .home-welcome p {
-    font-size: 19px;
+    font-size: 18px;
   }
   .home .home-footer .footer-social .icon:not(:last-child) {
     margin-right: 40px;
