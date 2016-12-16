@@ -78,11 +78,12 @@
 }
 @media (min-width: 600px) {
   .home .home-welcome h1 {
-    text-indent: -8px;
-    font-size: 120px;
+    text-indent: -9px;
+    font-size: 150px;
+    letter-spacing: -8px;
   }
   .home .home-welcome p {
-    font-size: 18px;
+    font-size: 19px;
   }
   .home .home-footer .footer-social .icon:not(:last-child) {
     margin-right: 40px;
