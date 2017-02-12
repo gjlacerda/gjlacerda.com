@@ -1,15 +1,23 @@
-var gulp   = require('gulp');
-var less   = require('gulp-less');
-var concat = require('gulp-concat');
-var watch  = require('gulp-watch');
-var fs     = require('fs');
+var gulp        = require('gulp');
+var less        = require('gulp-less');
+var concat      = require('gulp-concat');
+var watch       = require('gulp-watch');
+var fs          = require('fs');
+var fileinclude = require('gulp-file-include');
 
 var config = {
     less: {
         path: './src/assets/less/',
-        dest: './src/assets/css/',
+        dest: './dist/assets/css/',
         watch: [
             './src/assets/less/**/*.less'
+        ]
+    },
+    views: {
+        path: './src/views/index.html',
+        dest: './',
+        watch: [
+            './src/views/**/*.html'
         ]
     }
 };
@@ -33,13 +41,38 @@ gulp.task('less', function() {
 });
 
 /**
+ * File include
+ */
+gulp.task('fileinclude', function() {
+
+    gulp.src(config.views.path)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
+        .pipe(gulp.dest(config.views.dest));
+});
+
+/**
  * WATCH
  */
 gulp.task('watch', function() {
     gulp.watch(config.less.watch, ['less']);
+    gulp.watch(config.views.watch, ['fileinclude']);
+});
+
+/**
+ * Move assets
+ */
+gulp.task('assets', function() {
+
+    // Move imagens
+    gulp.src('./src/assets/images/*')
+        .pipe(gulp.dest('./dist/assets/images'));
+
 });
 
 /**
  * DEFAULT
  */
-gulp.task('default', ['less', 'watch']);
+gulp.task('default', ['less', 'watch', 'fileinclude', 'assets']);
