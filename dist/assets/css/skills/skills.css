@@ -1,33 +1,39 @@
 .skills {
   display: flex;
   align-items: center;
-  background-color: #3a97ff;
+  background-color: #f1b107;
 }
 .skills .skills-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.skills .skills-jobs {
+.skills .skills-info {
   flex-basis: 40%;
   margin-right: 100px;
 }
-.skills .skills-jobs h1 {
+.skills .skills-info h1 {
   font-size: 90px;
   text-indent: -6px;
   letter-spacing: -5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
-.skills .skills-jobs p {
-  margin-bottom: 15px;
-  font-size: 16px;
+.skills .skills-info p {
+  font-size: 18px;
 }
 .skills .skills-bars {
   flex-basis: 50%;
 }
 .skills .skills-bars ul li {
-  display: flex;
+  display: inline-flex;
+  flex-direction: column;
   align-items: center;
+}
+.skills .skills-bars ul li span {
+  color: #222;
+  margin-top: 22px;
+  display: block;
+  font-weight: 600;
 }
 .skills .skills-bars ul li:not(:last-child) {
   margin-bottom: 25px;

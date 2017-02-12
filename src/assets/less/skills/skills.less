@@ -4,7 +4,7 @@
 {
     display: flex;
     align-items: center;
-    background-color: #3a97ff;
+    background-color: #f1b107;
 
     .skills-container
     {
@@ -13,7 +13,7 @@
         align-items: center;
     }
 
-    .skills-jobs
+    .skills-info
     {
         flex-basis: 40%;
         margin-right: 100px;
@@ -23,13 +23,13 @@
             font-size: 90px;
             text-indent: -6px;
             letter-spacing: -5px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         p
         {
-            margin-bottom: 15px;
-            font-size: 16px;
+            //margin-bottom: 15px;
+            font-size: 18px;
         }
     }
 
@@ -41,9 +41,18 @@
         {
             li
             {
-                display: flex;
+                display: inline-flex;
+                flex-direction: column;
                 align-items: center;
 
+                span
+                {
+                    color: #222;
+                    margin-top: 22px;
+                    display: block;
+                    font-weight: 600;
+                }
+                
                 &:not(:last-child)
                 {
                     margin-bottom: 25px;
