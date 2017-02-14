@@ -1,64 +1,69 @@
 .skills {
   display: flex;
   align-items: center;
-  background-color: #f1b107;
+  justify-content: center;
+  flex-direction: column;
 }
 .skills .skills-container {
+  max-width: 500px;
+}
+.skills .skills-list {
+  display: flex;
+  flex-direction: column;
+}
+.skills .skills-list .bar {
+  width: 100%;
+  height: 40px;
+  margin: 10px 0;
+}
+.skills .skills-list .bar .progress {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
+  background-color: #333;
+  border-radius: 3px;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
-.skills .skills-info {
-  flex-basis: 40%;
-  margin-right: 100px;
-}
-.skills .skills-info h1 {
-  font-size: 90px;
-  text-indent: -6px;
-  letter-spacing: -5px;
-  margin-bottom: 10px;
-}
-.skills .skills-info p {
-  font-size: 18px;
-}
-.skills .skills-bars {
-  flex-basis: 50%;
-}
-.skills .skills-bars ul li {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-}
-.skills .skills-bars ul li span {
-  color: #222;
-  margin-top: 22px;
-  display: block;
-  font-weight: 600;
-}
-.skills .skills-bars ul li:not(:last-child) {
-  margin-bottom: 25px;
-}
-.skills .skills-bars .label {
-  display: inline-block;
+.skills .skills-list .bar span {
+  color: white;
   font-size: 14px;
-  width: 100px;
-  margin-right: 30px;
-  text-align: right;
   text-transform: uppercase;
 }
-.skills .skills-bars .bar {
-  width: 100%;
-  display: inline-block;
-  background-color: #45ff4d;
-  height: 28px;
-  border-radius: 3px;
+.skills .skills-list .bar.javascript .progress {
+  width: 80%;
 }
-@media (min-width: 600px) {
-  .skills .skills-jobs h1 {
-    text-indent: -8px;
-    font-size: 120px;
-  }
-  .skills .skills-jobs p {
-    font-size: 18px;
-  }
+.skills .skills-list .bar.angular1 .progress {
+  width: 95%;
+}
+.skills .skills-list .bar.angular2 .progress {
+  width: 60%;
+}
+.skills .skills-list .bar.react .progress {
+  width: 50%;
+}
+.skills .skills-list .bar.grunt .progress {
+  width: 65%;
+}
+.skills .skills-list .bar.gulp .progress {
+  width: 75%;
+}
+.skills .skills-list .bar.jquery .progress {
+  width: 100%;
+}
+.skills .skills-list .bar.html5 .progress {
+  width: 85%;
+}
+.skills .skills-list .bar.css3 .progress {
+  width: 85%;
+}
+.skills .skills-list .bar.less .progress {
+  width: 90%;
+}
+.skills .skills-list .bar.git .progress {
+  width: 75%;
+}
+.skills .skills-list .bar.php .progress {
+  width: 70%;
 }
