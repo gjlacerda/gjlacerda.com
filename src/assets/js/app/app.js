@@ -78,14 +78,14 @@
             event.canceled = true;
         }, 1500);
 
-        checkNavbar(page);
+        activateItemNavbar(page);
     }
 
     /**
      * Marca o item da navbar como ativo
      * @param index
      */
-    function checkNavbar(index) {
+    function activateItemNavbar(index) {
 
         $liHeaderNavbar.forEach((li, i) => {
 
