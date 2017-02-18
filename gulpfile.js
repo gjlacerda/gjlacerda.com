@@ -1,16 +1,26 @@
-var gulp        = require('gulp');
-var less        = require('gulp-less');
-var concat      = require('gulp-concat');
-var watch       = require('gulp-watch');
-var fs          = require('fs');
-var fileinclude = require('gulp-file-include');
+let gulp             = require('gulp');
+let less             = require('gulp-less');
+let concat           = require('gulp-concat');
+let watch            = require('gulp-watch');
+let fs               = require('fs');
+let fileinclude      = require('gulp-file-include');
+let webpack          = require('webpack');
+let webpackStream    = require('webpack-stream');
+let webpackConfig    = require('./webpack.config');
+var WebpackDevServer = require("webpack-dev-server");
 
-var config = {
+let config = {
     less: {
         path: './src/assets/less/',
         dest: './dist/assets/css/',
         watch: [
             './src/assets/less/**/*.less'
+        ]
+    },
+    js: {
+        dest: './dist/assets/js/',
+        watch: [
+            './src/assets/js/**/*.js'
         ]
     },
     views: {
@@ -29,7 +39,7 @@ gulp.task('less', function() {
 
     fs.readdirSync(config.less.path).map(function(folder) {
 
-        var path = config.less.path + folder + '/' + folder + '.less',
+        let path = config.less.path + folder + '/' + folder + '.less',
             dest = config.less.dest + folder;
 
         return gulp.src(path)
@@ -54,11 +64,12 @@ gulp.task('fileinclude', function() {
 });
 
 /**
- * WATCH
+ * Watch
  */
 gulp.task('watch', function() {
     gulp.watch(config.less.watch, ['less']);
     gulp.watch(config.views.watch, ['fileinclude']);
+    gulp.watch(config.js.watch, ['webpack']);
 });
 
 /**
@@ -73,6 +84,29 @@ gulp.task('assets', function() {
 });
 
 /**
+ * Webpack
+ */
+gulp.task('webpack', function() {
+
+    return gulp.src('./src/assets/js/main.js')
+               .pipe(webpackStream(webpackConfig))
+               .pipe(gulp.dest(config.js.dest));
+});
+
+/**
+ * Webpack dev server
+ */
+gulp.task('webpack-dev-server', function() {
+
+    new WebpackDevServer(webpack(webpackConfig), {
+
+    }).listen(8080, "localhost", function(err) {
+
+    });
+
+});
+
+/**
  * DEFAULT
  */
-gulp.task('default', ['less', 'watch', 'fileinclude', 'assets']);
+gulp.task('default', ['less', 'watch', 'fileinclude', 'assets', 'webpack-dev-server']);
