@@ -88,9 +88,13 @@ gulp.task('assets', function() {
  */
 gulp.task('webpack', function() {
 
-    return gulp.src('./src/assets/js/main.js')
-               .pipe(webpackStream(webpackConfig))
-               .pipe(gulp.dest(config.js.dest));
+    webpack(webpackConfig, function() {
+
+    });
+
+//     return gulp.src('./src/assets/js/main.js')
+//                .pipe(webpack(webpackConfig))
+//                .pipe(gulp.dest(config.js.dest));
 });
 
 /**
@@ -109,4 +113,4 @@ gulp.task('webpack-dev-server', function() {
 /**
  * DEFAULT
  */
-gulp.task('default', ['less', 'watch', 'fileinclude', 'assets', 'webpack-dev-server']);
+gulp.task('default', ['less', 'watch', 'fileinclude', 'assets', 'webpack', 'webpack-dev-server']);
