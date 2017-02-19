@@ -1,4 +1,10 @@
-import Classe from './teste/teste.js';
+import App from './app/app.js';
+import Skills from './skills/skills.js';
 
-let teste3 = new Classe();
-teste3.testar();
+let app    = new App(),
+    skills = new Skills();
+
+app.init();
+app.pages.skills.callback = () => skills.animate();
+
+skills.init();

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,22 +81,218 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Teste = function () {
-    function Teste() {
-        _classCallCheck(this, Teste);
+var ANIMATION_DELAY = 600;
+
+var App = function () {
+    function App() {
+        _classCallCheck(this, App);
+
+        /**
+         * Elemento body
+         * @type {Element}
+         */
+        this.$body = document.querySelector('body');
+
+        /**
+         * Elemento .header-options
+         * @type {Element}
+         */
+        this.$headerOptions = document.querySelector('.header-options');
+
+        /**
+         * Elemento Main
+         * @type {Element}
+         */
+        this.$main = document.querySelector('main');
+
+        /**
+         * Elementos Section
+         * @type {NodeList}
+         */
+        this.$sections = document.querySelectorAll('section');
+
+        /**
+         * Elemento MainContent
+         * @type {Element}
+         */
+        this.$mainContent = document.querySelector('.main-content');
+
+        /**
+         * Lista de links da navbar
+         * @type {NodeList}
+         */
+        this.$headerNavLi = document.querySelectorAll('.header-nav li');
+
+        /**
+         * Página atual
+         * @type {string}
+         */
+        this.page = 'home';
+
+        /**
+         * Indica se está transitando para outra página
+         * @type {boolean}
+         */
+        this.loadingPage = false;
+
+        /**
+         * Páginas e configurações
+         */
+        this.pages = {
+            home: {
+                callback: null,
+                next: 'skills'
+            },
+            skills: {
+                callback: null,
+                prev: 'home'
+            }
+        };
     }
 
-    _createClass(Teste, [{
-        key: 'testar',
-        value: function testar() {
-            console.log('sadasdas');
+    /**
+     * Inicialização
+     */
+
+
+    _createClass(App, [{
+        key: 'init',
+        value: function init() {
+            this.setMaxHeight();
+            this.registerEvents();
+        }
+
+        /**
+         * Seta a altura dos elementos com a altura da tela
+         */
+
+    }, {
+        key: 'setMaxHeight',
+        value: function setMaxHeight() {
+
+            var windowHeight = window.innerHeight + 'px';
+
+            this.$sections.forEach(function (section) {
+                section.style.height = windowHeight;
+            });
+
+            this.$main.style.height = windowHeight;
+        }
+    }, {
+        key: 'changePage',
+        value: function changePage(page) {
+            var _this = this;
+
+            var pageIndex = Object.keys(this.pages).indexOf(page),
+                translateY = -(window.innerHeight * pageIndex);
+
+            if (this.loadingPage) {
+                return false;
+            }
+
+            this.loadingPage = true;
+            this.page = page;
+
+            this.$mainContent.style.transform = 'translateY(' + translateY + 'px)';
+
+            setTimeout(function () {
+                _this.loadingPage = false;
+            }, 1500);
+
+            this.execCallbackPage();
+
+            this.activateItemNavbar();
+        }
+    }, {
+        key: 'getPageOnScroll',
+        value: function getPageOnScroll(deltaY) {
+
+            var direction = deltaY > 0 ? 'next' : 'prev';
+
+            // Não mexe a tela ao dar scroll
+            event.preventDefault();
+
+            // Próxima página
+            return this.pages[this.page][direction];
+        }
+
+        /**
+         * Eventos
+         */
+
+    }, {
+        key: 'registerEvents',
+        value: function registerEvents() {
+            var _this2 = this;
+
+            // Recalcula o tamanho máximo ao dar resize
+            window.addEventListener('resize', function () {
+                _this2.setMaxHeight();
+            });
+
+            // Troca de página
+            this.$main.addEventListener('mousewheel', function (event) {
+
+                var page = _this2.getPageOnScroll(event.deltaY);
+
+                if (page) {
+                    _this2.changePage(page);
+                }
+            });
+
+            // Abre o menu
+            this.$headerOptions.addEventListener('click', function () {
+                _this2.$body.classList.toggle('menu-active');
+            });
+        }
+
+        /**
+         * Marca o item da navbar como ativo
+         */
+
+    }, {
+        key: 'activateItemNavbar',
+        value: function activateItemNavbar() {
+
+            var pageIndex = Object.keys(this.pages).indexOf(this.page);
+
+            this.$headerNavLi.forEach(function (li, i) {
+
+                var method = pageIndex === i ? 'add' : 'remove';
+
+                li.classList[method]('active');
+            });
+        }
+
+        /**
+         * Executa uma ação ao trocar para uma certa página
+         */
+
+    }, {
+        key: 'execCallbackPage',
+        value: function execCallbackPage() {
+            var _this3 = this;
+
+            var callbackPage = this.pages[this.page].callback;
+
+            if (!callbackPage) {
+                return;
+            }
+
+            setTimeout(function () {
+
+                callbackPage();
+
+                // Limpa depois de executar
+                _this3.pages[_this3.page].callback = null;
+            }, ANIMATION_DELAY);
         }
     }]);
 
-    return Teste;
+    return App;
 }();
 
-exports.default = Teste;
+exports.default = App;
 
 /***/ }),
 /* 1 */
@@ -105,14 +301,188 @@ exports.default = Teste;
 "use strict";
 
 
-var _teste = __webpack_require__(0);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var _teste2 = _interopRequireDefault(_teste);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var quart = Math.PI / 2;
+var PI2 = Math.PI * 2;
+var lineWidth = 6;
+
+var Skills = function () {
+    function Skills() {
+        _classCallCheck(this, Skills);
+
+        /**
+         * Percentual dos gráficos
+         * @type {number}
+         */
+        this.percent = 0;
+
+        /**
+         * Lista de skills
+         */
+        this.skills = [{
+            canvas: document.getElementById('javascript'),
+            label: document.querySelector('.javascript-label'),
+            name: 'javascript',
+            percent: 90,
+            color: '189, 92, 185'
+        }, {
+            canvas: document.getElementById('angular1'),
+            label: document.querySelector('.angular1-label'),
+            name: 'angular1',
+            percent: 90,
+            color: '45, 126, 165'
+
+        }, {
+            canvas: document.getElementById('angular2'),
+            label: document.querySelector('.angular2-label'),
+            name: 'angular2',
+            percent: 60,
+            color: '254, 94, 65'
+        }, {
+            canvas: document.getElementById('react'),
+            label: document.querySelector('.react-label'),
+            name: 'react',
+            percent: 50,
+            color: '46, 204, 113'
+        }, {
+            canvas: document.getElementById('gulp'),
+            label: document.querySelector('.gulp-label'),
+            name: 'gulp',
+            percent: 75,
+            color: '192, 57, 43'
+        }, {
+            canvas: document.getElementById('css3'),
+            label: document.querySelector('.css3-label'),
+            name: 'css3',
+            percent: 90,
+            color: '254, 134, 31'
+        }, {
+            canvas: document.getElementById('html5'),
+            label: document.querySelector('.html5-label'),
+            name: 'html5',
+            percent: 95,
+            color: '51, 139, 231'
+        }, {
+            canvas: document.getElementById('less'),
+            label: document.querySelector('.less-label'),
+            name: 'less',
+            percent: 85,
+            color: '52, 73, 94'
+        }, {
+            canvas: document.getElementById('git'),
+            label: document.querySelector('.git-label'),
+            name: 'git',
+            percent: 70,
+            color: '142, 68, 173'
+        }, {
+            canvas: document.getElementById('php'),
+            label: document.querySelector('.php-label'),
+            name: 'php',
+            percent: 80,
+            color: '26, 188, 156'
+        }];
+    }
+
+    _createClass(Skills, [{
+        key: 'init',
+        value: function init() {
+            this.paintLabels();
+        }
+    }, {
+        key: 'paintLabels',
+        value: function paintLabels() {
+            this.skills.forEach(function (skill) {
+                skill.label.style.color = 'rgb(' + skill.color + ')';
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this = this;
+
+            this.skills.forEach(function (skill) {
+
+                var $canvas = skill.canvas,
+                    ctx = $canvas.getContext("2d"),
+                    pct = _this.percent / 100,
+                    extent = parseInt(skill.percent * pct),
+                    current = skill.percent / 100 * PI2 * pct - quart,
+                    x = $canvas.width / 2,
+                    y = $canvas.height / 2,
+                    radius = $canvas.width / 2 - lineWidth / 2;
+
+                ctx.lineWidth = lineWidth;
+                ctx.font = "16px Arial";
+
+                ctx.clearRect(0, 0, $canvas.width, $canvas.height);
+                ctx.beginPath();
+                ctx.arc(x, y, radius, -quart, 100);
+                ctx.fillStyle = 'rgba(' + skill.color + ',.1)';
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(x, y, radius, -quart, current);
+                ctx.strokeStyle = 'rgb(' + skill.color + ')';
+                ctx.stroke();
+                ctx.fillStyle = '#666';
+                ctx.fillText(extent + '%', $canvas.width / 2 - 14, $canvas.height / 2 + 5);
+            });
+        }
+    }, {
+        key: 'animate',
+        value: function animate() {
+            var _this2 = this;
+
+            if (this.percent < 100) {
+                requestAnimationFrame(function () {
+                    return _this2.animate();
+                });
+            }
+
+            this.render();
+
+            this.percent += 1;
+        }
+    }]);
+
+    return Skills;
+}();
+
+exports.default = Skills;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _app = __webpack_require__(0);
+
+var _app2 = _interopRequireDefault(_app);
+
+var _skills = __webpack_require__(1);
+
+var _skills2 = _interopRequireDefault(_skills);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var teste3 = new _teste2.default();
-teste3.testar();
+var app = new _app2.default(),
+    skills = new _skills2.default();
+
+app.init();
+app.pages.skills.callback = function () {
+    return skills.animate();
+};
+
+skills.init();
 
 /***/ })
 /******/ ]);

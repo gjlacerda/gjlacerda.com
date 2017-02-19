@@ -1,117 +1,189 @@
-(() => {
+const ANIMATION_DELAY = 600;
 
-    'use strict';
+class App {
 
-    /**
-     * Indica se está carregando uma página
-     * @type {boolean}
-     */
-    let loadingPage = false;
+    constructor() {
 
-    /**
-     * Página atual
-     * @type {number}
-     */
-    let page = 0;
+        /**
+         * Elemento body
+         * @type {Element}
+         */
+        this.$body = document.querySelector('body');
 
-    /**
-    * Elementos Section
-    * @type {NodeList}
-    */
-    let $sections = document.querySelectorAll('section');
+        /**
+         * Elemento .header-options
+         * @type {Element}
+         */
+        this.$headerOptions = document.querySelector('.header-options');
 
-    /**
-     * Elemento Main
-     * @type {Element}
-     */
-    let $main = document.querySelector('main');
+        /**
+         * Elemento Main
+         * @type {Element}
+         */
+        this.$main = document.querySelector('main');
 
-    /**
-     * Navbar principal
-     * @type {Element}
-     */
-    let $liHeaderNavbar = document.querySelectorAll('.header-nav li');
+        /**
+         * Elementos Section
+         * @type {NodeList}
+         */
+        this.$sections = document.querySelectorAll('section');
 
-    /**
-     * Seta a altura dos elementos com a altura da tela
-     */
-    function setMaxHeight() {
+        /**
+         * Elemento MainContent
+         * @type {Element}
+         */
+        this.$mainContent = document.querySelector('.main-content');
 
-        let windowHeight = `${window.innerHeight}px`;
+        /**
+         * Lista de links da navbar
+         * @type {NodeList}
+         */
+        this.$headerNavLi = document.querySelectorAll('.header-nav li');
 
-        $sections.forEach(section => {
-            section.style.height = windowHeight;
-        });
+        /**
+         * Página atual
+         * @type {string}
+         */
+        this.page = 'home';
 
-        $main.style.height = windowHeight;
-    }
+        /**
+         * Indica se está transitando para outra página
+         * @type {boolean}
+         */
+        this.loadingPage = false;
 
-    /**
-     * Troca de página de acordo com a direção do scroll
-     * @param event
-     */
-    function changePage(event) {
-
-        let windowHeight = -window.innerHeight,
-            direction    = event.deltaY > 0 ? 'down' : 'up';
-
-        // Evita que mexa a tela
-        event.preventDefault();
-
-        if (loadingPage) {
-            return false;
-        }
-
-        if ((page === 0 && direction === 'up') || (page === $sections.length - 1 && direction === 'down')) {
-            return false;
-        }
-
-        loadingPage = true;
-        page        = direction === 'down' ? ++page : --page;
-
-        $sections.forEach(section => {
-            section.style.transform = `translateY(${windowHeight * page}px)`;
-        });
-
-        setTimeout(() => {
-            loadingPage = false;
-            event.canceled = true;
-        }, 1500);
-
-        activateItemNavbar(page);
-    }
-
-    /**
-     * Marca o item da navbar como ativo
-     * @param index
-     */
-    function activateItemNavbar(index) {
-
-        $liHeaderNavbar.forEach((li, i) => {
-
-            let method = index === i ? 'add' : 'remove';
-
-            li.classList[method]('active');
-
-        });
+        /**
+         * Páginas e configurações
+         */
+        this.pages = {
+            home: {
+                callback: null,
+                next: 'skills'
+            },
+            skills: {
+                callback: null,
+                prev: 'home'
+            }
+        };
     }
 
     /**
      * Inicialização
      */
-    function init() {
+    init() {
+        this.setMaxHeight();
+        this.registerEvents();
+    }
 
-        // Recalcula o tamanho máximo ao dar resize
-        window.addEventListener('resize', setMaxHeight);
+    /**
+     * Seta a altura dos elementos com a altura da tela
+     */
+    setMaxHeight() {
 
-        // Troca de página
-        $main.addEventListener('mousewheel', event => {
-            changePage(event);
+        let windowHeight = `${window.innerHeight}px`;
+
+        this.$sections.forEach(section => {
+            section.style.height = windowHeight;
         });
 
-        setMaxHeight();
+        this.$main.style.height = windowHeight;
     }
-    
-    init();
 
-})();
+    changePage(page) {
+
+        let pageIndex  = Object.keys(this.pages).indexOf(page),
+            translateY = -(window.innerHeight * pageIndex);
+
+        if (this.loadingPage) {
+            return false;
+        }
+
+        this.loadingPage = true;
+        this.page        = page;
+
+        this.$mainContent.style.transform = `translateY(${translateY}px)`;
+
+        setTimeout(() => {
+            this.loadingPage = false;
+        }, 1500);
+
+        this.execCallbackPage();
+
+        this.activateItemNavbar();
+    }
+
+    getPageOnScroll(deltaY) {
+
+        let direction = deltaY > 0 ? 'next' : 'prev';
+
+        // Não mexe a tela ao dar scroll
+        event.preventDefault();
+
+        // Próxima página
+        return this.pages[this.page][direction];
+    }
+
+    /**
+     * Eventos
+     */
+    registerEvents() {
+
+        // Recalcula o tamanho máximo ao dar resize
+        window.addEventListener('resize', () => {
+            this.setMaxHeight();
+        });
+
+        // Troca de página
+        this.$main.addEventListener('mousewheel', event => {
+
+            let page = this.getPageOnScroll(event.deltaY);
+
+            if (page) {
+                this.changePage(page);
+            }
+        });
+
+        // Abre o menu
+        this.$headerOptions.addEventListener('click', () => {
+            this.$body.classList.toggle('menu-active');
+        });
+    }
+
+    /**
+     * Marca o item da navbar como ativo
+     */
+    activateItemNavbar() {
+
+        let pageIndex = Object.keys(this.pages).indexOf(this.page);
+
+        this.$headerNavLi.forEach((li, i) => {
+
+            let method = pageIndex === i ? 'add' : 'remove';
+
+            li.classList[method]('active');
+        });
+    }
+
+    /**
+     * Executa uma ação ao trocar para uma certa página
+     */
+    execCallbackPage() {
+
+        let callbackPage = this.pages[this.page].callback;
+
+        if (!callbackPage) {
+            return;
+        }
+
+        setTimeout(() => {
+
+            callbackPage();
+
+            // Limpa depois de executar
+            this.pages[this.page].callback = null;
+
+        }, ANIMATION_DELAY);
+    }
+}
+
+export default App;

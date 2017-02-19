@@ -1,92 +1,103 @@
-(() => {
+const quart     = Math.PI / 2;
+const PI2       = Math.PI * 2;
+const lineWidth = 6;
 
-    'use strict';
+class Skills {
 
-    const quart     = Math.PI / 2;
-    const PI2       = Math.PI * 2;
-    const lineWidth = 6;
-    let percent     = 0;
+    constructor() {
 
-    const skills = [
-        {
-            canvas: document.getElementById('javascript'),
-            label: document.querySelector('.javascript-label'),
-            name: 'javascript',
-            percent: 90,
-            color: '189, 92, 185'
-        }, {
-            canvas: document.getElementById('angular1'),
-            label: document.querySelector('.angular1-label'),
-            name: 'angular1',
-            percent: 90,
-            color: '45, 126, 165'
+        /**
+         * Percentual dos gráficos
+         * @type {number}
+         */
+        this.percent = 0;
 
-        }, {
-            canvas: document.getElementById('angular2'),
-            label: document.querySelector('.angular2-label'),
-            name: 'angular2',
-            percent: 60,
-            color: '254, 94, 65'
-        }, {
-            canvas: document.getElementById('react'),
-            label: document.querySelector('.react-label'),
-            name: 'react',
-            percent: 50,
-            color: '46, 204, 113'
-        }, {
-            canvas: document.getElementById('gulp'),
-            label: document.querySelector('.gulp-label'),
-            name: 'gulp',
-            percent: 75,
-            color: '192, 57, 43'
-        }, {
-            canvas: document.getElementById('css3'),
-            label: document.querySelector('.css3-label'),
-            name: 'css3',
-            percent: 90,
-            color: '254, 134, 31'
-        }, {
-            canvas: document.getElementById('html5'),
-            label: document.querySelector('.html5-label'),
-            name: 'html5',
-            percent: 95,
-            color: '51, 139, 231'
-        }, {
-            canvas: document.getElementById('less'),
-            label: document.querySelector('.less-label'),
-            name: 'less',
-            percent: 85,
-            color: '52, 73, 94'
-        }, {
-            canvas: document.getElementById('git'),
-            label: document.querySelector('.git-label'),
-            name: 'git',
-            percent: 70,
-            color: '142, 68, 173'
-        }, {
-            canvas: document.getElementById('php'),
-            label: document.querySelector('.php-label'),
-            name: 'php',
-            percent: 80,
-            color: '26, 188, 156'
-        }
-    ];
+        /**
+         * Lista de skills
+         */
+        this.skills = [
+            {
+                canvas: document.getElementById('javascript'),
+                label: document.querySelector('.javascript-label'),
+                name: 'javascript',
+                percent: 90,
+                color: '189, 92, 185'
+            }, {
+                canvas: document.getElementById('angular1'),
+                label: document.querySelector('.angular1-label'),
+                name: 'angular1',
+                percent: 90,
+                color: '45, 126, 165'
 
-    function init() {
-        paintLabels();
-
-        setTimeout(() => {
-            animate();
-        }, 5000);
+            }, {
+                canvas: document.getElementById('angular2'),
+                label: document.querySelector('.angular2-label'),
+                name: 'angular2',
+                percent: 60,
+                color: '254, 94, 65'
+            }, {
+                canvas: document.getElementById('react'),
+                label: document.querySelector('.react-label'),
+                name: 'react',
+                percent: 50,
+                color: '46, 204, 113'
+            }, {
+                canvas: document.getElementById('gulp'),
+                label: document.querySelector('.gulp-label'),
+                name: 'gulp',
+                percent: 75,
+                color: '192, 57, 43'
+            }, {
+                canvas: document.getElementById('css3'),
+                label: document.querySelector('.css3-label'),
+                name: 'css3',
+                percent: 90,
+                color: '254, 134, 31'
+            }, {
+                canvas: document.getElementById('html5'),
+                label: document.querySelector('.html5-label'),
+                name: 'html5',
+                percent: 95,
+                color: '51, 139, 231'
+            }, {
+                canvas: document.getElementById('less'),
+                label: document.querySelector('.less-label'),
+                name: 'less',
+                percent: 85,
+                color: '52, 73, 94'
+            }, {
+                canvas: document.getElementById('git'),
+                label: document.querySelector('.git-label'),
+                name: 'git',
+                percent: 70,
+                color: '142, 68, 173'
+            }, {
+                canvas: document.getElementById('php'),
+                label: document.querySelector('.php-label'),
+                name: 'php',
+                percent: 80,
+                color: '26, 188, 156'
+            }
+        ];
     }
 
-    function render(percent) {
+    init() {
+        this.paintLabels();
+    }
 
-        skills.forEach(skill => {
+    paintLabels() {
+        this.skills.forEach(skill => {
+            skill.label.style.color = `rgb(${skill.color})`;
+        });
+    }
+
+    render() {
+
+        this.skills.forEach(skill => {
 
             let $canvas = skill.canvas,
                 ctx     = $canvas.getContext("2d"),
-                pct     = percent / 100,
+                pct     = this.percent / 100,
                 extent  = parseInt((skill.percent) * pct),
                 current = (skill.percent) / 100 * PI2 * pct - quart,
                 x       = $canvas.width / 2,
@@ -108,29 +119,19 @@
             ctx.stroke();
             ctx.fillStyle = '#666';
             ctx.fillText(extent + '%', ($canvas.width / 2) - 14, ($canvas.height / 2) + 5);
-
         });
     }
 
-    function paintLabels() {
-        skills.forEach(skill => {
-            skill.label.style.color = `rgb(${skill.color})`;
-        });
-    }
+    animate() {
 
-    function animate() {
-
-        if (percent < 100) {
-            requestAnimationFrame(animate);
+        if (this.percent < 100) {
+            requestAnimationFrame(() => this.animate());
         }
 
-        render(percent);
+        this.render();
 
-
-        percent += 1;
-
+        this.percent += 1;
     }
+}
 
-    init();
-
-})();
+export default Skills;

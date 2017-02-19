@@ -9,12 +9,13 @@
   }
 }
 .home {
+  position: relative;
   display: flex;
   align-items: center;
 }
 .home:before {
   content: "";
-  position: fixed;
+  position: absolute;
   z-index: -1;
   top: 0;
   left: 0;
