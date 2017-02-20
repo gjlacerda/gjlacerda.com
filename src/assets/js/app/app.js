@@ -1,5 +1,3 @@
-const ANIMATION_DELAY = 600;
-
 class App {
 
     constructor() {
@@ -175,14 +173,14 @@ class App {
             return;
         }
 
-        setTimeout(() => {
+        //setTimeout(() => {
 
             callbackPage();
 
             // Limpa depois de executar
             this.pages[this.page].callback = null;
 
-        }, ANIMATION_DELAY);
+        //}, ANIMATION_DELAY - 300);
     }
 }
 
