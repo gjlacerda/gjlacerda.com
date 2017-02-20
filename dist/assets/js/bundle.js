@@ -138,12 +138,7 @@ var App = function () {
          */
         this.pages = {
             home: {
-                callback: null,
-                next: 'skills'
-            },
-            skills: {
-                callback: null,
-                prev: 'home'
+                callback: null
             }
         };
     }
@@ -546,11 +541,9 @@ var app = new _app2.default(),
     skills = new _skills2.default();
 
 app.init();
-app.pages.skills.callback = function () {
-    return skills.startAnimation();
-};
+//app.pages.skills.callback = () => skills.startAnimation();
 
-skills.init();
+//skills.init();
 
 /***/ })
 /******/ ]);

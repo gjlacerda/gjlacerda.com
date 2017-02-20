@@ -5,6 +5,6 @@ let app    = new App(),
     skills = new Skills();
 
 app.init();
-app.pages.skills.callback = () => skills.startAnimation();
+//app.pages.skills.callback = () => skills.startAnimation();
 
-skills.init();
+//skills.init();
