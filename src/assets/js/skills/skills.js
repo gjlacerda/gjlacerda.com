@@ -118,6 +118,7 @@ class Skills {
         ctx.font      = this.configSize.font;
 
         ctx.clearRect(0, 0, $canvas.width, $canvas.height);
+        
         ctx.beginPath();
         ctx.arc(x, y, radius, -quart, 100);
         ctx.fillStyle = `rgba(${skill.color},.1)`;

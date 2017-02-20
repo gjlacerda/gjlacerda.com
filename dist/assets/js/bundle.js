@@ -138,7 +138,12 @@ var App = function () {
          */
         this.pages = {
             home: {
-                callback: null
+                callback: null,
+                next: 'skills'
+            },
+            skills: {
+                callback: null,
+                prev: 'home'
             }
         };
     }
@@ -426,6 +431,7 @@ var Skills = function () {
             ctx.font = this.configSize.font;
 
             ctx.clearRect(0, 0, $canvas.width, $canvas.height);
+
             ctx.beginPath();
             ctx.arc(x, y, radius, -quart, 100);
             ctx.fillStyle = 'rgba(' + skill.color + ',.1)';
@@ -541,9 +547,11 @@ var app = new _app2.default(),
     skills = new _skills2.default();
 
 app.init();
-//app.pages.skills.callback = () => skills.startAnimation();
+app.pages.skills.callback = function () {
+    return skills.startAnimation();
+};
 
-//skills.init();
+skills.init();
 
 /***/ })
 /******/ ]);
