@@ -13,18 +13,28 @@
   }
 }
 @keyframes cursor-fade {
-  0% {
+  50% {
     opacity: 1;
   }
   100% {
     opacity: 0;
   }
 }
-@keyframes welcome-to-right {
+@keyframes home-welcome-left {
   0% {
-    transform: translateX(-99.7%);
+    transform: translateX(50%);
   }
   100% {
+    transform: translateX(0);
+  }
+}
+@keyframes welcome-content-right {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
     transform: translateX(0);
   }
 }
@@ -81,41 +91,42 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  animation: image-fade-in 1.2s 1s both;
+  animation: image-fade-in 1s 1s both;
 }
 .home .home-welcome {
-  display: flex;
-  overflow-x: hidden;
-}
-.home .home-welcome .welcome-content {
   position: relative;
   display: flex;
+  max-width: 570px;
+  overflow-x: hidden;
+  animation: home-welcome-left 0.5s 1s both;
+}
+.home .home-welcome .welcome-content {
+  display: flex;
   flex-direction: column;
-  animation: welcome-to-right 0.5s 1s backwards;
+  animation: welcome-content-right 0.5s 1s both;
 }
-.home .home-welcome .welcome-content:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 2px;
-  background-color: #222;
-  animation: cursor-pulse 0.7s 0.3s both, cursor-fade 0.3s 1.5s forwards;
-}
-.home .home-welcome h1 {
+.home .home-welcome .welcome-content h1 {
   font-size: 90px;
   text-indent: -6px;
   letter-spacing: -5px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   line-height: 0.8;
 }
-.home .home-welcome p {
-  max-width: 570px;
+.home .home-welcome .welcome-content p {
   font-size: 16px;
 }
-.home .home-welcome a {
+.home .home-welcome .welcome-content a {
   text-decoration: underline;
+}
+.home .home-welcome:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #222;
+  animation: cursor-pulse 0.7s 0.3s both, cursor-fade 0.8s 1s forwards;
 }
 .home .home-footer {
   position: absolute;
@@ -153,12 +164,12 @@
   fill: #ca9601;
 }
 @media (min-width: 600px) {
-  .home .home-welcome h1 {
+  .home .home-welcome .welcome-content h1 {
     text-indent: -9px;
     font-size: 150px;
     letter-spacing: -8px;
   }
-  .home .home-welcome p {
+  .home .home-welcome .welcome-content p {
     font-size: 18px;
   }
   .home .home-footer .footer-social .icon:not(:last-child) {

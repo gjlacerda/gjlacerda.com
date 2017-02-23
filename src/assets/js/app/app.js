@@ -142,9 +142,7 @@ class App {
         });
 
         // Abre o menu
-        this.$headerOptions.addEventListener('click', () => {
-            this.$body.classList.toggle('menu-active');
-        });
+        this.$headerOptions.addEventListener('click', () => this.$body.classList.toggle('menu-active'));
     }
 
     /**

@@ -240,7 +240,7 @@ var App = function () {
 
             // Abre o menu
             this.$headerOptions.addEventListener('click', function () {
-                _this2.$body.classList.toggle('menu-active');
+                return _this2.$body.classList.toggle('menu-active');
             });
         }
 

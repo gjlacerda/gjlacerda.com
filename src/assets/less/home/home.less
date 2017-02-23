@@ -20,52 +20,53 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        animation: image-fade-in 1.2s 1s both;
+        animation: image-fade-in 1s 1s both;
     }
 
     .home-welcome
     {
+        position: relative;
         display: flex;
+        max-width: 570px;
         overflow-x: hidden;
+        animation: home-welcome-left 0.5s 1s both;
 
         .welcome-content
         {
-            position: relative;
             display: flex;
             flex-direction: column;
-            animation: welcome-to-right 0.5s 1s backwards;
+            animation: welcome-content-right 0.5s 1s both;
 
-            &:before
+            h1
             {
-                content: "";
-                position: absolute;
-                top: 0;
-                right: 0;
-                height: 100%;
-                width: 2px;
-                background-color: @color-text;
-                animation: cursor-pulse 0.7s 0.3s both, cursor-fade 0.3s 1.5s forwards;
+                font-size: 90px;
+                text-indent: -6px;
+                letter-spacing: -5px;
+                margin-bottom: 20px;
+                line-height: 0.8;
+            }
+
+            p
+            {
+                font-size: 16px;
+            }
+
+            a
+            {
+                text-decoration: underline;
             }
         }
 
-        h1
+        &:before
         {
-            font-size: 90px;
-            text-indent: -6px;
-            letter-spacing: -5px;
-            margin-bottom: 10px;
-            line-height: 0.8;
-        }
-
-        p
-        {
-            max-width: 570px;
-            font-size: 16px;
-        }
-
-        a
-        {
-            text-decoration: underline;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 2px;
+            background-color: @color-text;
+            animation: cursor-pulse 0.7s 0.3s both, cursor-fade 0.8s 1s forwards;
         }
     }
 
@@ -126,7 +127,7 @@
 
     @media (min-width: @screen-sm)
     {
-        .home-welcome
+        .home-welcome .welcome-content
         {
             h1
             {
