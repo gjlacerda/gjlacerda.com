@@ -173,14 +173,10 @@ class App {
             return;
         }
 
-        //setTimeout(() => {
+        callbackPage();
 
-            callbackPage();
-
-            // Limpa depois de executar
-            this.pages[this.page].callback = null;
-
-        //}, ANIMATION_DELAY - 300);
+        // Limpa depois de executar
+        this.pages[this.page].callback = null;
     }
 }
 

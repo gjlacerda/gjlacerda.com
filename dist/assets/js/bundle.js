@@ -276,14 +276,10 @@ var App = function () {
                 return;
             }
 
-            //setTimeout(() => {
-
             callbackPage();
 
             // Limpa depois de executar
             this.pages[this.page].callback = null;
-
-            //}, ANIMATION_DELAY - 300);
         }
     }]);
 

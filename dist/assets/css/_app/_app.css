@@ -236,3 +236,34 @@ body.menu-active .main-menu .menu-content {
 .main-content {
   transition: transform 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
+@keyframes scroll-dance {
+  0% {
+    bottom: 25px;
+  }
+  20% {
+    bottom: 25px;
+  }
+  40% {
+    bottom: 35px;
+  }
+  60% {
+    bottom: 25px;
+  }
+  80% {
+    bottom: 35px;
+  }
+  100% {
+    bottom: 25px;
+  }
+}
+.scroll-arrow {
+  display: flex;
+  position: fixed;
+  bottom: 25px;
+  left: calc(50% - 18px);
+  cursor: pointer;
+  padding: 5px;
+  animation-iteration-count: infinite;
+  animation-duration: 1.5s;
+  animation-name: scroll-dance;
+}

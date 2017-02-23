@@ -29,15 +29,18 @@
   animation-delay: 0.2s;
   opacity: 0;
 }
+.home .home-welcome {
+  position: relative;
+}
 .home .home-welcome h1 {
   font-size: 90px;
   text-indent: -6px;
   letter-spacing: -5px;
   margin-bottom: 10px;
+  line-height: 0.8;
 }
 .home .home-welcome p {
   max-width: 600px;
-  margin-bottom: 15px;
   font-size: 16px;
 }
 .home .home-welcome a {
