@@ -57,11 +57,39 @@ p {
     width: 90%;
   }
 }
+@keyframes down {
+  0% {
+    top: -40px;
+  }
+  100% {
+    top: 40px;
+  }
+}
+@media (min-width: 992px) {
+  @keyframes down {
+    0% {
+      top: -60px;
+    }
+    100% {
+      top: 60px;
+    }
+  }
+}
+@media (min-width: 1415px) {
+  @keyframes down {
+    0% {
+      top: -80px;
+    }
+    100% {
+      top: 80px;
+    }
+  }
+}
 .main-header {
   position: fixed;
   width: 100%;
-  top: 40px;
   z-index: 5;
+  animation: down 0.5s 1s both;
 }
 .main-header .header-content {
   position: relative;
@@ -103,6 +131,7 @@ p {
   cursor: pointer;
   padding: 12px 0 12px 12px;
   z-index: 6;
+  animation: down 0.5s 1s both;
 }
 .main-header + .header-options .line,
 .main-header + .header-options .line:before,
@@ -133,17 +162,11 @@ p {
   }
 }
 @media (min-width: 992px) {
-  .main-header {
-    top: 60px;
-  }
   .main-header + .header-options {
     top: calc(58px);
   }
 }
 @media (min-width: 1415px) {
-  .main-header {
-    top: 80px;
-  }
   .main-header + .header-options {
     top: calc(78px);
   }
@@ -256,6 +279,14 @@ body.menu-active .main-menu .menu-content {
     bottom: 25px;
   }
 }
+@keyframes scroll-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .scroll-arrow {
   display: flex;
   position: fixed;
@@ -263,7 +294,5 @@ body.menu-active .main-menu .menu-content {
   left: calc(50% - 18px);
   cursor: pointer;
   padding: 5px;
-  animation-iteration-count: infinite;
-  animation-duration: 1.5s;
-  animation-name: scroll-dance;
+  animation: scroll-dance 1.5s 1.2s infinite, scroll-fade-in 0.5s 1s both;
 }

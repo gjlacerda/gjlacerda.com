@@ -1,9 +1,54 @@
+@keyframes down
+{
+    0%
+    {
+        top: -@breakpoint-edge-sm;
+    }
+
+    100%
+    {
+        top: @breakpoint-edge-sm;
+    }
+}
+
+@media (min-width: @screen-md)
+{
+    @keyframes down
+    {
+        0%
+        {
+            top: -@breakpoint-edge-md;
+        }
+
+        100%
+        {
+            top: @breakpoint-edge-md;
+        }
+    }
+}
+
+@media (min-width: @screen-xl)
+{
+    @keyframes down
+    {
+        0%
+        {
+            top: -@breakpoint-edge-xl;
+        }
+
+        100%
+        {
+            top: @breakpoint-edge-xl;
+        }
+    }
+}
+
 .main-header
 {
     position: fixed;
     width: 100%;
-    top: @breakpoint-edge-sm;
     z-index: 5;
+    animation: down 0.5s 1s both;
 
     .header-content
     {
@@ -65,6 +110,7 @@
         cursor: pointer;
         padding: 12px 0 12px 12px;
         z-index: 6;
+        animation: down 0.5s 1s both;
 
         .line,
         .line:before,
@@ -109,8 +155,6 @@
 
     @media (min-width: @screen-md)
     {
-        top: @breakpoint-edge-md;
-
         &+.header-options
         {
             top: calc(@breakpoint-edge-md - 2px);
@@ -119,11 +163,9 @@
 
     @media (min-width: @screen-xl)
     {
-        top: @breakpoint-edge-lg;
-
         &+.header-options
         {
-            top: calc(@breakpoint-edge-lg - 2px);
+            top: calc(@breakpoint-edge-xl - 2px);
         }
     }
 }

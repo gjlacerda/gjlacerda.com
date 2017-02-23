@@ -1,11 +1,67 @@
-@keyframes image-animate {
+@keyframes cursor-pulse {
   0% {
     opacity: 0;
-    transform: scale(0.99);
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+  }
+}
+@keyframes cursor-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes welcome-to-right {
+  0% {
+    transform: translateX(-99.7%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes image-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes up {
+  0% {
+    bottom: -40px;
+  }
+  100% {
+    bottom: 40px;
+  }
+}
+@media (min-width: 992px) {
+  @keyframes up {
+    0% {
+      bottom: -60px;
+    }
+    100% {
+      bottom: 60px;
+    }
+  }
+}
+@media (min-width: 1415px) {
+  @keyframes up {
+    0% {
+      bottom: -80px;
+    }
+    100% {
+      bottom: 80px;
+    }
   }
 }
 .home {
@@ -25,12 +81,27 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  animation: image-animate 1.5s forwards;
-  animation-delay: 0.2s;
-  opacity: 0;
+  animation: image-fade-in 1.2s 1s both;
 }
 .home .home-welcome {
+  display: flex;
+  overflow-x: hidden;
+}
+.home .home-welcome .welcome-content {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  animation: welcome-to-right 0.5s 1s backwards;
+}
+.home .home-welcome .welcome-content:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #222;
+  animation: cursor-pulse 0.7s 0.3s both, cursor-fade 0.3s 1.5s forwards;
 }
 .home .home-welcome h1 {
   font-size: 90px;
@@ -40,7 +111,7 @@
   line-height: 0.8;
 }
 .home .home-welcome p {
-  max-width: 600px;
+  max-width: 570px;
   font-size: 16px;
 }
 .home .home-welcome a {
@@ -49,6 +120,7 @@
 .home .home-footer {
   position: absolute;
   bottom: 40px;
+  animation: up 0.5s 1s both;
 }
 .home .home-footer .footer-social {
   display: flex;

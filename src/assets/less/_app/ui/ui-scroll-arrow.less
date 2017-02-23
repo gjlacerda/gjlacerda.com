@@ -25,6 +25,19 @@
     }
 }
 
+@keyframes scroll-fade-in
+{
+    0%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        opacity: 1;
+    }
+}
+
 .scroll-arrow
 {
     display: flex;
@@ -33,7 +46,5 @@
     left: ~"calc(50% - 18px)";
     cursor: pointer;
     padding: 5px;
-    animation-iteration-count: infinite;
-    animation-duration: 1.5s;
-    animation-name: scroll-dance;
+    animation: scroll-dance 1.5s 1.2s infinite, scroll-fade-in 0.5s 1s both;
 }

@@ -1,19 +1,5 @@
 @import (reference) "../_app/site/site-variables";
-
-@keyframes image-animate
-{
-    0%
-    {
-        opacity: 0;
-        transform: scale(0.99);
-    }
-
-    100%
-    {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
+@import "home-keyframes";
 
 .home
 {
@@ -34,14 +20,33 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        animation: image-animate 1.5s forwards;
-        animation-delay: 0.2s;
-        opacity: 0;
+        animation: image-fade-in 1.2s 1s both;
     }
 
     .home-welcome
     {
-        position: relative;
+        display: flex;
+        overflow-x: hidden;
+
+        .welcome-content
+        {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            animation: welcome-to-right 0.5s 1s backwards;
+
+            &:before
+            {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: 2px;
+                background-color: @color-text;
+                animation: cursor-pulse 0.7s 0.3s both, cursor-fade 0.3s 1.5s forwards;
+            }
+        }
 
         h1
         {
@@ -54,31 +59,21 @@
 
         p
         {
-            max-width: 600px;
+            max-width: 570px;
             font-size: 16px;
         }
-        
+
         a
         {
             text-decoration: underline;
         }
-
-        //&:before
-        //{
-        //    content: "";
-        //    position: absolute;
-        //    top: 0;
-        //    left: 0;
-        //    height: 100%;
-        //    width: 2px;
-        //    background-color: red;
-        //}
     }
 
     .home-footer
     {
         position: absolute;
         bottom: @breakpoint-edge-sm;
+        animation: up 0.5s 1s both;
 
         .footer-social
         {
@@ -164,7 +159,7 @@
     {
         .home-footer
         {
-            bottom: @breakpoint-edge-lg;
+            bottom: @breakpoint-edge-xl;
         }
     }
 }
