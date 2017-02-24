@@ -56,11 +56,16 @@ class App {
         this.pages = {
             home: {
                 callback: null,
+                next: 'about'
+            },
+            about: {
+                callback: null,
+                prev: 'home',
                 next: 'skills'
             },
             skills: {
                 callback: null,
-                prev: 'home'
+                prev: 'about'
             }
         };
     }

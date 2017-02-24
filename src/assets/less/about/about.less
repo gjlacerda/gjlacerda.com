@@ -1,0 +1,144 @@
+@import (reference) "../_app/site/site-variables";
+
+@keyframes heart-beat {
+    0% {
+        transform: scale(0.8)
+    }
+
+    15% {
+        transform: scale(1)
+    }
+
+    30% {
+        transform: scale(0.8)
+    }
+
+    45% {
+        transform: scale(1)
+    }
+
+    80% {
+        transform: scale(0.8)
+    }
+
+    100% {
+        transform: scale(0.8)
+    }
+}
+
+.about
+{
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .about-container
+    {
+        display: flex;
+    }
+
+    .about-me
+    {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 50%;
+        max-width: 800px;
+
+        h2
+        {
+            font-size: 90px;
+            text-indent: -6px;
+            letter-spacing: -5px;
+            margin-bottom: 20px;
+            line-height: 0.8;
+        }
+
+        p
+        {
+            font-size: 16px;
+        }
+
+        p.heart
+        {
+            margin-top: 15px;
+
+            svg
+            {
+                vertical-align: middle;
+                margin: 0 0 2px 2px;
+                animation: heart-beat 1.7s 1s infinite;
+            }
+        }
+
+        a
+        {
+            text-decoration: underline;
+        }
+    }
+
+    .about-contact
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-basis: 50%;
+        margin-left: 100px;
+
+        h2
+        {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        ul
+        {
+            display: flex;
+            
+            li
+            {
+                display: inline-flex;
+
+                &:not(:last-child)
+                {
+                    margin-right: 30px;
+                }    
+            }
+        }
+
+        .contact-email
+        {
+            position: relative;
+            top: 1px;
+        }
+
+        .contact-github
+        {
+            position: relative;
+            top: 2px;
+        }
+
+        .contact-instagram
+        {
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    @media (min-width: @screen-sm)
+    {
+        .about-me
+        {
+            h2
+            {
+                text-indent: -9px;
+                font-size: 150px;
+                letter-spacing: -8px;
+            }
+
+            p
+            {
+                font-size: 18px;
+            }
+        }
+    }
+}
