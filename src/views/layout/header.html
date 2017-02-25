@@ -2,14 +2,14 @@
     <div class="header-content container">
         <nav class="header-nav">
             <ul>
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Skills</a></li>
+                <li class="active" onclick="App.changePage('home')"><a href="#">Home</a></li>
+                <li><a href="#" onclick="App.changePage('skills')">Skills</a></li>
+                <li><a href="#" onclick="App.changePage('about')">About</a></li>
             </ul>
         </nav>
     </div>
 </header>
 
-<div class="header-options">
+<div class="header-options" onclick="App.toggleMenu()">
     <span class="line"></span>
 </div>

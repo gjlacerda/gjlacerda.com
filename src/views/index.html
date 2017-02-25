@@ -3,7 +3,7 @@
 <head>
     @@include('layout/head.html')
 </head>
-<body>
+<body onmousewheel="App.getPageOnScroll(event.deltaY)">
 
     <!-- Header principal -->
     @@include('layout/header.html')
@@ -15,25 +15,25 @@
             <!-- Home -->
             @@include('home/home.html')
 
-            <!-- About -->
-            @@include('about/about.html')
-
             <!-- Skills -->
             @@include('skills/skills.html')
+
+            <!-- About -->
+            @@include('about/about.html')
 
         </div>
 
     </main>
+
+    <div class="scroll-arrow" onclick="App.nextPage()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 49.656 49.656"><g fill="#222"><path d="M1.414 14.535l2.828-2.828 20.586 20.585 20.586-20.585 2.828 2.828L24.828 37.95z"/><path d="M24.828 39.364L0 14.536l4.242-4.242 20.586 20.585 20.586-20.586 4.242 4.242-24.828 24.829zm-22-24.828l22 22 22-22.001-1.414-1.414-20.586 20.586L4.242 13.122l-1.414 1.414z"/></g></svg>
+    </div>
 
     <!-- Menu -->
     @@include('layout/menu.html')
 
     <!-- Footer links -->
     @@include('layout/footer-links.html')
-
-    <div class="scroll-arrow">
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 49.656 49.656"><g fill="#222"><path d="M1.414 14.535l2.828-2.828 20.586 20.585 20.586-20.585 2.828 2.828L24.828 37.95z"/><path d="M24.828 39.364L0 14.536l4.242-4.242 20.586 20.585 20.586-20.586 4.242 4.242-24.828 24.829zm-22-24.828l22 22 22-22.001-1.414-1.414-20.586 20.586L4.242 13.122l-1.414 1.414z"/></g></svg>
-    </div>
 
 </body>
 </html>

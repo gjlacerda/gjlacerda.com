@@ -9,12 +9,6 @@ class App {
         this.$body = document.querySelector('body');
 
         /**
-         * Elemento .header-options
-         * @type {Element}
-         */
-        this.$headerOptions = document.querySelector('.header-options');
-
-        /**
          * Elemento Main
          * @type {Element}
          */
@@ -39,6 +33,12 @@ class App {
         this.$headerNavLi = document.querySelectorAll('.header-nav li');
 
         /**
+         * Elemento com a seta de troca de página
+         * @type {Element}
+         */
+        this.$scrollArrow = document.querySelector('.scroll-arrow');
+
+        /**
          * Página atual
          * @type {string}
          */
@@ -55,27 +55,16 @@ class App {
          */
         this.pages = {
             home: {
-                callback: null,
-                next: 'about'
-            },
-            about: {
-                callback: null,
-                prev: 'home',
                 next: 'skills'
             },
             skills: {
-                callback: null,
-                prev: 'about'
-            }
+                next: 'about',
+                prev: 'home'
+            },
+            about: {
+                prev: 'skills',
+            },
         };
-    }
-
-    /**
-     * Inicialização
-     */
-    init() {
-        this.setMaxHeight();
-        this.registerEvents();
     }
 
     /**
@@ -113,41 +102,24 @@ class App {
         this.execCallbackPage();
 
         this.activateItemNavbar();
+
+        this.toggleScrollArrow();
     }
 
     getPageOnScroll(deltaY) {
 
-        let direction = deltaY > 0 ? 'next' : 'prev';
+        let direction = deltaY > 0 ? 'next' : 'prev',
+            nextPage  = null;
 
         // Não mexe a tela ao dar scroll
         event.preventDefault();
 
         // Próxima página
-        return this.pages[this.page][direction];
-    }
+        nextPage = this.pages[this.page][direction];
 
-    /**
-     * Eventos
-     */
-    registerEvents() {
-
-        // Recalcula o tamanho máximo ao dar resize
-        window.addEventListener('resize', () => {
-            this.setMaxHeight();
-        });
-
-        // Troca de página
-        this.$main.addEventListener('mousewheel', event => {
-
-            let page = this.getPageOnScroll(event.deltaY);
-
-            if (page) {
-                this.changePage(page);
-            }
-        });
-
-        // Abre o menu
-        this.$headerOptions.addEventListener('click', () => this.$body.classList.toggle('menu-active'));
+        if (nextPage) {
+            this.changePage(nextPage);
+        }
     }
 
     /**
@@ -181,6 +153,29 @@ class App {
         // Limpa depois de executar
         this.pages[this.page].callback = null;
     }
+
+    /**
+     * Mostra/esconde a seta de navegação
+     */
+    toggleScrollArrow() {
+
+        let classMethod = this.pages[this.page].next ? 'remove' : 'add';
+
+        this.$scrollArrow.classList[classMethod]('hide');
+    }
+
+    nextPage() {
+
+        let next = this.pages[this.page].next;
+
+        if (next) {
+            this.changePage(next);
+        }
+    }
+
+    toggleMenu() {
+        this.$body.classList.toggle('menu-active');
+    };
 }
 
 export default App;

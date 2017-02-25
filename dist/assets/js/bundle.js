@@ -92,12 +92,6 @@ var App = function () {
         this.$body = document.querySelector('body');
 
         /**
-         * Elemento .header-options
-         * @type {Element}
-         */
-        this.$headerOptions = document.querySelector('.header-options');
-
-        /**
          * Elemento Main
          * @type {Element}
          */
@@ -122,6 +116,12 @@ var App = function () {
         this.$headerNavLi = document.querySelectorAll('.header-nav li');
 
         /**
+         * Elemento com a seta de troca de página
+         * @type {Element}
+         */
+        this.$scrollArrow = document.querySelector('.scroll-arrow');
+
+        /**
          * Página atual
          * @type {string}
          */
@@ -138,38 +138,24 @@ var App = function () {
          */
         this.pages = {
             home: {
-                callback: null,
-                next: 'about'
-            },
-            about: {
-                callback: null,
-                prev: 'home',
                 next: 'skills'
             },
             skills: {
-                callback: null,
-                prev: 'about'
+                next: 'about',
+                prev: 'home'
+            },
+            about: {
+                prev: 'skills'
             }
         };
     }
 
     /**
-     * Inicialização
+     * Seta a altura dos elementos com a altura da tela
      */
 
 
     _createClass(App, [{
-        key: 'init',
-        value: function init() {
-            this.setMaxHeight();
-            this.registerEvents();
-        }
-
-        /**
-         * Seta a altura dos elementos com a altura da tela
-         */
-
-    }, {
         key: 'setMaxHeight',
         value: function setMaxHeight() {
 
@@ -205,48 +191,25 @@ var App = function () {
             this.execCallbackPage();
 
             this.activateItemNavbar();
+
+            this.toggleScrollArrow();
         }
     }, {
         key: 'getPageOnScroll',
         value: function getPageOnScroll(deltaY) {
 
-            var direction = deltaY > 0 ? 'next' : 'prev';
+            var direction = deltaY > 0 ? 'next' : 'prev',
+                nextPage = null;
 
             // Não mexe a tela ao dar scroll
             event.preventDefault();
 
             // Próxima página
-            return this.pages[this.page][direction];
-        }
+            nextPage = this.pages[this.page][direction];
 
-        /**
-         * Eventos
-         */
-
-    }, {
-        key: 'registerEvents',
-        value: function registerEvents() {
-            var _this2 = this;
-
-            // Recalcula o tamanho máximo ao dar resize
-            window.addEventListener('resize', function () {
-                _this2.setMaxHeight();
-            });
-
-            // Troca de página
-            this.$main.addEventListener('mousewheel', function (event) {
-
-                var page = _this2.getPageOnScroll(event.deltaY);
-
-                if (page) {
-                    _this2.changePage(page);
-                }
-            });
-
-            // Abre o menu
-            this.$headerOptions.addEventListener('click', function () {
-                return _this2.$body.classList.toggle('menu-active');
-            });
+            if (nextPage) {
+                this.changePage(nextPage);
+            }
         }
 
         /**
@@ -286,6 +249,34 @@ var App = function () {
             // Limpa depois de executar
             this.pages[this.page].callback = null;
         }
+
+        /**
+         * Mostra/esconde a seta de navegação
+         */
+
+    }, {
+        key: 'toggleScrollArrow',
+        value: function toggleScrollArrow() {
+
+            var classMethod = this.pages[this.page].next ? 'remove' : 'add';
+
+            this.$scrollArrow.classList[classMethod]('hide');
+        }
+    }, {
+        key: 'nextPage',
+        value: function nextPage() {
+
+            var next = this.pages[this.page].next;
+
+            if (next) {
+                this.changePage(next);
+            }
+        }
+    }, {
+        key: 'toggleMenu',
+        value: function toggleMenu() {
+            this.$body.classList.toggle('menu-active');
+        }
     }]);
 
     return App;
@@ -308,8 +299,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var quart = Math.PI / 2;
+var QUART = Math.PI / 2;
 var PI2 = Math.PI * 2;
+var PIXEL_RATIO = 2;
 
 var Skills = function () {
     function Skills() {
@@ -410,8 +402,10 @@ var Skills = function () {
             var _this = this;
 
             this.skills.forEach(function (skill) {
-                skill.canvas.width = _this.configSize.canvasWidth;
-                skill.canvas.height = _this.configSize.canvasWidth;
+                skill.canvas.width = _this.configSize.canvasWidth * PIXEL_RATIO;
+                skill.canvas.height = _this.configSize.canvasWidth * PIXEL_RATIO;
+                skill.canvas.style.width = _this.configSize.canvasWidth + 'px';
+                skill.canvas.style.height = _this.configSize.canvasWidth + 'px';
                 skill.label.style.color = 'rgb(' + skill.color + ')';
             });
         }
@@ -423,27 +417,27 @@ var Skills = function () {
                 ctx = $canvas.getContext("2d"),
                 pct = skill.percent / 100,
                 extent = parseInt(skill.maxPercent * pct),
-                current = skill.maxPercent / 100 * PI2 * pct - quart,
+                current = skill.maxPercent / 100 * PI2 * pct - QUART,
                 x = $canvas.width / 2,
                 y = $canvas.height / 2,
-                radius = $canvas.width / 2 - this.configSize.lineWidth / 2;
+                radius = $canvas.width / 2 - this.configSize.lineWidth / 2 * PIXEL_RATIO;
 
-            ctx.lineWidth = this.configSize.lineWidth;
-            ctx.font = this.configSize.font;
+            ctx.lineWidth = this.configSize.lineWidth * PIXEL_RATIO;
+            ctx.font = this.configSize.font + 'px Arial';
 
             ctx.clearRect(0, 0, $canvas.width, $canvas.height);
 
             ctx.beginPath();
-            ctx.arc(x, y, radius, -quart, 100);
+            ctx.arc(x, y, radius, -QUART, 100);
             ctx.fillStyle = 'rgba(' + skill.color + ',.1)';
             ctx.fill();
 
             ctx.beginPath();
-            ctx.arc(x, y, radius, -quart, current);
+            ctx.arc(x, y, radius, -QUART, current);
             ctx.strokeStyle = 'rgb(' + skill.color + ')';
             ctx.stroke();
             ctx.fillStyle = '#666';
-            ctx.fillText(extent + '%', $canvas.width / 2 - this.configSize.textX, $canvas.height / 2 + 5);
+            ctx.fillText(extent + '%', $canvas.width / 2 - this.configSize.textX, $canvas.height / 2 + 10);
         }
     }, {
         key: 'startAnimation',
@@ -489,16 +483,16 @@ var Skills = function () {
             this.configSize = {
                 canvasWidth: 65,
                 lineWidth: 3,
-                font: '12px Arial',
-                textX: 10
+                font: 12 * PIXEL_RATIO,
+                textX: 10 * PIXEL_RATIO
             };
 
             if (width >= 600) {
                 this.configSize = {
                     canvasWidth: 90,
                     lineWidth: 4,
-                    font: '12px Arial',
-                    textX: 10
+                    font: 12 * PIXEL_RATIO,
+                    textX: 10 * PIXEL_RATIO
                 };
             }
 
@@ -506,8 +500,8 @@ var Skills = function () {
                 this.configSize = {
                     canvasWidth: 120,
                     lineWidth: 4,
-                    font: '14px Arial',
-                    textX: 10
+                    font: 14 * PIXEL_RATIO,
+                    textX: 10 * PIXEL_RATIO
                 };
             }
 
@@ -515,8 +509,8 @@ var Skills = function () {
                 this.configSize = {
                     canvasWidth: 180,
                     lineWidth: 5,
-                    font: '16px Arial',
-                    textX: 12
+                    font: 16 * PIXEL_RATIO,
+                    textX: 12 * PIXEL_RATIO
                 };
             }
         }
@@ -547,12 +541,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = new _app2.default(),
     skills = new _skills2.default();
 
-app.init();
+app.setMaxHeight();
 app.pages.skills.callback = function () {
     return skills.startAnimation();
 };
 
+window.addEventListener('resize', function () {
+    app.setMaxHeight();
+});
+
 skills.init();
+
+window.App = app;
 
 /***/ })
 /******/ ]);

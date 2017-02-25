@@ -36,7 +36,7 @@
   font-size: 90px;
   text-indent: -6px;
   letter-spacing: -5px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   line-height: 0.8;
 }
 .about .about-me p {
@@ -58,32 +58,25 @@
   flex-direction: column;
   justify-content: center;
   flex-basis: 50%;
-  margin-left: 100px;
+  margin-left: 120px;
 }
 .about .about-contact h2 {
   font-size: 20px;
   margin-bottom: 30px;
 }
 .about .about-contact ul {
-  display: flex;
+  list-style: circle;
+  margin-left: 20px;
 }
 .about .about-contact ul li {
-  display: inline-flex;
+  margin-bottom: 10px;
 }
-.about .about-contact ul li:not(:last-child) {
-  margin-right: 30px;
+.about .about-contact ul a {
+  color: #333;
+  border-bottom: 1px solid #333;
 }
-.about .about-contact .contact-email {
-  position: relative;
-  top: 1px;
-}
-.about .about-contact .contact-github {
-  position: relative;
-  top: 2px;
-}
-.about .about-contact .contact-instagram {
-  position: relative;
-  top: 3px;
+.about .about-contact ul:not(:last-child) {
+  margin-bottom: 10px;
 }
 @media (min-width: 600px) {
   .about .about-me h2 {

@@ -1,5 +1,6 @@
-const quart     = Math.PI / 2;
-const PI2       = Math.PI * 2;
+const QUART       = Math.PI / 2;
+const PI2         = Math.PI * 2;
+const PIXEL_RATIO = 2;
 
 class Skills {
 
@@ -91,15 +92,18 @@ class Skills {
     }
 
     init() {
-        this.getConfigurationSize();
+        this.getConfigurationSize()
         this.configureElements();
     }
 
     configureElements() {
+
         this.skills.forEach(skill => {
-            skill.canvas.width  = this.configSize.canvasWidth;
-            skill.canvas.height = this.configSize.canvasWidth;
-            skill.label.style.color = `rgb(${skill.color})`;
+            skill.canvas.width        = this.configSize.canvasWidth * PIXEL_RATIO;
+            skill.canvas.height       = this.configSize.canvasWidth * PIXEL_RATIO;
+            skill.canvas.style.width  = this.configSize.canvasWidth + 'px';
+            skill.canvas.style.height = this.configSize.canvasWidth + 'px';
+            skill.label.style.color   = `rgb(${skill.color})`;
         });
     }
 
@@ -109,27 +113,27 @@ class Skills {
             ctx     = $canvas.getContext("2d"),
             pct     = skill.percent / 100,
             extent  = parseInt((skill.maxPercent) * pct),
-            current = (skill.maxPercent) / 100 * PI2 * pct - quart,
+            current = (skill.maxPercent) / 100 * PI2 * pct - QUART,
             x       = $canvas.width / 2,
             y       = $canvas.height / 2,
-            radius  = ($canvas.width / 2) - (this.configSize.lineWidth / 2);
+            radius  = ($canvas.width / 2) - (this.configSize.lineWidth / 2) * PIXEL_RATIO;
 
-        ctx.lineWidth = this.configSize.lineWidth;
-        ctx.font      = this.configSize.font;
+        ctx.lineWidth = this.configSize.lineWidth * PIXEL_RATIO;
+        ctx.font      = this.configSize.font + 'px Arial';
 
         ctx.clearRect(0, 0, $canvas.width, $canvas.height);
 
         ctx.beginPath();
-        ctx.arc(x, y, radius, -quart, 100);
+        ctx.arc(x, y, radius, -QUART, 100);
         ctx.fillStyle = `rgba(${skill.color},.1)`;
         ctx.fill();
 
         ctx.beginPath();
-        ctx.arc(x, y, radius, -quart, current);
+        ctx.arc(x, y, radius, -QUART, current);
         ctx.strokeStyle = `rgb(${skill.color})`;
         ctx.stroke();
         ctx.fillStyle = '#666';
-        ctx.fillText(extent + '%', ($canvas.width / 2) - this.configSize.textX, ($canvas.height / 2) + 5);
+        ctx.fillText(extent + '%', ($canvas.width / 2) - this.configSize.textX, ($canvas.height / 2) + 10);
     }
 
     startAnimation() {
@@ -157,7 +161,7 @@ class Skills {
 
     animateElements(element) {
         element.parentNode.style.transform = 'scale(1)';
-        element.parentNode.style.opacity = 1;
+        element.parentNode.style.opacity   = 1;
     }
 
     getConfigurationSize() {
@@ -167,16 +171,16 @@ class Skills {
         this.configSize = {
             canvasWidth: 65,
             lineWidth: 3,
-            font: '12px Arial',
-            textX: 10,
+            font: 12 * PIXEL_RATIO,
+            textX: 10 * PIXEL_RATIO,
         };
 
         if (width >= 600) {
             this.configSize = {
                 canvasWidth: 90,
                 lineWidth: 4,
-                font: '12px Arial',
-                textX: 10,
+                font: 12 * PIXEL_RATIO,
+                textX: 10 * PIXEL_RATIO,
             };
         }
 
@@ -184,8 +188,8 @@ class Skills {
             this.configSize = {
                 canvasWidth: 120,
                 lineWidth: 4,
-                font: '14px Arial',
-                textX: 10,
+                font: 14 * PIXEL_RATIO,
+                textX: 10 * PIXEL_RATIO,
             };
         }
 
@@ -193,8 +197,8 @@ class Skills {
             this.configSize = {
                 canvasWidth: 180,
                 lineWidth: 5,
-                font: '16px Arial',
-                textX: 12,
+                font: 16 * PIXEL_RATIO,
+                textX: 12 * PIXEL_RATIO,
             };
         }
     }

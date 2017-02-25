@@ -49,7 +49,7 @@
             font-size: 90px;
             text-indent: -6px;
             letter-spacing: -5px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 0.8;
         }
 
@@ -82,7 +82,7 @@
         flex-direction: column;
         justify-content: center;
         flex-basis: 50%;
-        margin-left: 100px;
+        margin-left: 120px;
 
         h2
         {
@@ -92,35 +92,24 @@
 
         ul
         {
-            display: flex;
-            
+            list-style: circle;
+            margin-left: 20px;
+
             li
             {
-                display: inline-flex;
-
-                &:not(:last-child)
-                {
-                    margin-right: 30px;
-                }    
+                margin-bottom: 10px;
             }
-        }
 
-        .contact-email
-        {
-            position: relative;
-            top: 1px;
-        }
+            a
+            {
+                color: #333;
+                border-bottom: 1px solid #333;
+            }
 
-        .contact-github
-        {
-            position: relative;
-            top: 2px;
-        }
-
-        .contact-instagram
-        {
-            position: relative;
-            top: 3px;
+            &:not(:last-child)
+            {
+                margin-bottom: 10px;
+            }
         }
     }
 
