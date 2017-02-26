@@ -81,6 +81,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var DIRECTION = {
+    NEXT: 'next',
+    PREV: 'prev'
+};
+
 var App = function () {
     function App() {
         _classCallCheck(this, App);
@@ -148,6 +153,13 @@ var App = function () {
                 prev: 'skills'
             }
         };
+
+        /**
+         * Lista com as posições do touch Y
+         */
+        this.touchList = [];
+
+        this.count = 0;
     }
 
     /**
@@ -186,7 +198,7 @@ var App = function () {
 
             setTimeout(function () {
                 _this.loadingPage = false;
-            }, 1500);
+            }, 600);
 
             this.execCallbackPage();
 
@@ -194,21 +206,51 @@ var App = function () {
 
             this.toggleScrollArrow();
         }
+
+        /**
+         * Troca de página ao dar scroll
+         * @param event
+         */
+
     }, {
         key: 'getPageOnScroll',
-        value: function getPageOnScroll(deltaY) {
+        value: function getPageOnScroll(event) {
+            console.log(event);
+            this.count++;
 
-            var direction = deltaY > 0 ? 'next' : 'prev',
-                nextPage = null;
+            if (this.count > 4) {
+
+                this.count = 0;
+            }
+
+            var direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV;
 
             // Não mexe a tela ao dar scroll
             event.preventDefault();
 
-            // Próxima página
-            nextPage = this.pages[this.page][direction];
+            this.changePageByDirection(direction);
+        }
 
-            if (nextPage) {
-                this.changePage(nextPage);
+        /**
+         * Trouca de página pelo touch
+         * @param event
+         */
+
+    }, {
+        key: 'getPageOnTouch',
+        value: function getPageOnTouch(event) {
+
+            this.touchList.push(event.touches[0].pageY);
+
+            if (this.touchList.length >= 10) {
+
+                var firstPosition = this.touchList[0],
+                    lastPosition = this.touchList[this.touchList.length - 1],
+                    direction = firstPosition > lastPosition ? DIRECTION.NEXT : DIRECTION.PREV;
+
+                this.resetTouch();
+
+                this.changePageByDirection(direction);
             }
         }
 
@@ -262,6 +304,11 @@ var App = function () {
 
             this.$scrollArrow.classList[classMethod]('hide');
         }
+
+        /**
+         * Navega para próxima página
+         */
+
     }, {
         key: 'nextPage',
         value: function nextPage() {
@@ -272,10 +319,36 @@ var App = function () {
                 this.changePage(next);
             }
         }
+
+        /**
+         * Mostra/esconde o menu
+         */
+
     }, {
         key: 'toggleMenu',
         value: function toggleMenu() {
             this.$body.classList.toggle('menu-active');
+        }
+    }, {
+        key: 'changePageByDirection',
+
+
+        /**
+         * Troca de página de acordo com a direção
+         * @param direction
+         */
+        value: function changePageByDirection(direction) {
+
+            var nextPage = this.pages[this.page][direction];
+
+            if (nextPage) {
+                this.changePage(nextPage);
+            }
+        }
+    }, {
+        key: 'resetTouch',
+        value: function resetTouch() {
+            this.touchList = [];
         }
     }]);
 

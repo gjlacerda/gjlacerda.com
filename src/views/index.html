@@ -3,7 +3,7 @@
 <head>
     @@include('layout/head.html')
 </head>
-<body onmousewheel="App.getPageOnScroll(event.deltaY)">
+<body onmousewheel="App.getPageOnScroll(event)" ontouchmove="App.getPageOnTouch(event)" ontouchend="App.resetTouch()">
 
     <!-- Header principal -->
     @@include('layout/header.html')

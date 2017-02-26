@@ -1,3 +1,8 @@
+const DIRECTION = {
+    NEXT: 'next',
+    PREV: 'prev'
+};
+
 class App {
 
     constructor() {
@@ -65,6 +70,13 @@ class App {
                 prev: 'skills',
             },
         };
+
+        /**
+         * Lista com as posições do touch Y
+         */
+        this.touchList = [];
+
+        this.count = 0;
     }
 
     /**
@@ -97,7 +109,7 @@ class App {
 
         setTimeout(() => {
             this.loadingPage = false;
-        }, 1500);
+        }, 600);
 
         this.execCallbackPage();
 
@@ -106,19 +118,44 @@ class App {
         this.toggleScrollArrow();
     }
 
-    getPageOnScroll(deltaY) {
+    /**
+     * Troca de página ao dar scroll
+     * @param event
+     */
+    getPageOnScroll(event) {
+        console.log(event);
+        this.count++;
 
-        let direction = deltaY > 0 ? 'next' : 'prev',
-            nextPage  = null;
+        if (this.count > 4) {
+            
+            this.count = 0;
+        }
+
+        let direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV;
 
         // Não mexe a tela ao dar scroll
         event.preventDefault();
 
-        // Próxima página
-        nextPage = this.pages[this.page][direction];
+        this.changePageByDirection(direction);
+    }
 
-        if (nextPage) {
-            this.changePage(nextPage);
+    /**
+     * Trouca de página pelo touch
+     * @param event
+     */
+    getPageOnTouch(event) {
+
+        this.touchList.push(event.touches[0].pageY);
+
+        if (this.touchList.length >= 10) {
+            
+            let firstPosition = this.touchList[0],
+                lastPosition  = this.touchList[this.touchList.length - 1],
+                direction = firstPosition > lastPosition ? DIRECTION.NEXT : DIRECTION.PREV;
+
+            this.resetTouch();
+
+            this.changePageByDirection(direction);
         }
     }
 
@@ -164,6 +201,9 @@ class App {
         this.$scrollArrow.classList[classMethod]('hide');
     }
 
+    /**
+     * Navega para próxima página
+     */
     nextPage() {
 
         let next = this.pages[this.page].next;
@@ -173,9 +213,29 @@ class App {
         }
     }
 
+    /**
+     * Mostra/esconde o menu
+     */
     toggleMenu() {
         this.$body.classList.toggle('menu-active');
     };
+
+    /**
+     * Troca de página de acordo com a direção
+     * @param direction
+     */
+    changePageByDirection(direction) {
+
+        let nextPage = this.pages[this.page][direction];
+
+        if (nextPage) {
+            this.changePage(nextPage);
+        }
+    }
+    
+    resetTouch() {
+        this.touchList = [];
+    }
 }
 
 export default App;
