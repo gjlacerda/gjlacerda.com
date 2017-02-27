@@ -88,6 +88,13 @@ class App {
          */
         this.lastWheelTimeout = null;
 
+        /**
+         * Variáveis que armazenagem a posição do touch
+         * @type {null}
+         */
+        this.touchStart = null;
+        this.touchEnd   = null;
+
         this.registerEvent();
     }
 
@@ -175,10 +182,10 @@ class App {
         this.touchList.push(event.touches[0].pageY);
 
         if (this.touchList.length >= 10) {
-            
+
             let firstPosition = this.touchList[0],
                 lastPosition  = this.touchList[this.touchList.length - 1],
-                direction = firstPosition > lastPosition ? DIRECTION.NEXT : DIRECTION.PREV;
+                direction     = firstPosition > lastPosition ? DIRECTION.NEXT : DIRECTION.PREV;
 
             this.resetTouch();
 
@@ -276,6 +283,7 @@ class App {
      */
     onTouchStart(event) {
         this.touchStart = event.touches[0].pageY;
+        this.touchEnd   = undefined;
     }
 
     /**
@@ -291,16 +299,12 @@ class App {
      */
     onTouchEnd() {
 
-        let distance = Math.abs(this.touchStart - this.touchEnd);
-        alert(this.touchStart + ' ' + this.touchEnd + ' ' + distance);
-
-        this.touchEnd = 0;
-
+        let distance  = Math.abs(this.touchStart - this.touchEnd),
+            direction = this.touchStart > this.touchEnd ? DIRECTION.NEXT : DIRECTION.PREV;
+        console.log(this.touchStart, this.touchEnd, distance);
         if (isNaN(distance) || distance < 50) {
             return;
         }
-        
-        let direction = this.touchStart > this.touchEnd ? DIRECTION.NEXT : DIRECTION.PREV;
 
         this.changePageByDirection(direction);
     }
