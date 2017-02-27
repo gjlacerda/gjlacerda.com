@@ -141,7 +141,7 @@
   display: block;
 }
 .home .home-footer .footer-social .icon:not(:last-child) {
-  margin-right: 30px;
+  margin-right: 35px;
 }
 .home .home-footer .footer-social .icon:hover {
   opacity: 1;
