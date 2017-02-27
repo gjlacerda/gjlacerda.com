@@ -71,7 +71,6 @@
                 position: relative;
                 padding-bottom: 5px;
                 font-size: @font-size-xs;
-                cursor: pointer;
 
                 &:after
                 {
@@ -88,7 +87,7 @@
 
             &:not(:last-child)
             {
-                margin-right: 35px;
+                margin-right: 30px;
             }
 
             &.active
@@ -106,7 +105,7 @@
     &+.header-options
     {
         position: fixed;
-        top: calc(@breakpoint-edge-sm);
+        top: calc(@breakpoint-edge-sm - 2px);
         right: 20px;
         cursor: pointer;
         padding: 12px 0 12px 12px;
@@ -138,21 +137,12 @@
         }
     }
 
-    @media (min-width: @screen-xs)
-    {
-        .header-nav li
-        {
-            display: inline-flex;
-        }
+    @media (min-width: @screen-xs){
+
     }
 
     @media (min-width: @screen-sm)
     {
-        .header-nav li a
-        {
-            font-size: 16px;
-        }
-
         &+.header-options
         {
             right: 5%;

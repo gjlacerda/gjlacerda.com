@@ -158,6 +158,18 @@ var App = function () {
          * Lista com as posições do touch Y
          */
         this.touchList = [];
+
+        /**
+         * Momentou que disparou o último evento wheel
+         * @type {number}
+         */
+        this.lastWheelTime = new Date().getDate();
+
+        /**
+         * Timeout para resetar a ultima hora do ultimo wheel
+         * @type {null}
+         */
+        this.lastWheelTimeout = null;
     }
 
     /**
@@ -196,7 +208,7 @@ var App = function () {
 
             setTimeout(function () {
                 _this.loadingPage = false;
-            }, 1500);
+            }, 600);
 
             this.execCallbackPage();
 
@@ -213,8 +225,31 @@ var App = function () {
     }, {
         key: 'getPageOnScroll',
         value: function getPageOnScroll(event) {
+            var _this2 = this;
 
-            var direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV;
+            var direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV,
+                timeNow = new Date().getTime(),
+                abort = false;
+
+            event.preventDefault();
+
+            if ((timeNow - this.lastWheelTime) / 1000 < 0.1) {
+                abort = true;
+            }
+
+            this.lastWheelTime = timeNow;
+
+            if (abort) {
+                return;
+            }
+
+            if (this.lastWheelTimeout) {
+                clearTimeout(this.lastWheelTimeout);
+            }
+
+            this.lastWheelTimeout = setTimeout(function () {
+                _this2.lastWheelTime = _this2.lastWheelTime - 10000;
+            }, 1500);
 
             // Não mexe a tela ao dar scroll
             event.preventDefault();

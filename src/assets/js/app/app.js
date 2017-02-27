@@ -75,6 +75,18 @@ class App {
          * Lista com as posições do touch Y
          */
         this.touchList = [];
+
+        /**
+         * Momentou que disparou o último evento wheel
+         * @type {number}
+         */
+        this.lastWheelTime = new Date().getDate();
+
+        /**
+         * Timeout para resetar a ultima hora do ultimo wheel
+         * @type {null}
+         */
+        this.lastWheelTimeout = null;
     }
 
     /**
@@ -107,7 +119,7 @@ class App {
 
         setTimeout(() => {
             this.loadingPage = false;
-        }, 1500);
+        }, 600);
 
         this.execCallbackPage();
 
@@ -122,7 +134,29 @@ class App {
      */
     getPageOnScroll(event) {
 
-        let direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV;
+        let direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV,
+            timeNow   = new Date().getTime(),
+            abort     = false;
+
+        event.preventDefault();
+
+        if ((timeNow - this.lastWheelTime) / 1000 < 0.1) {
+            abort = true;
+        }
+
+        this.lastWheelTime = timeNow;
+
+        if (abort) {
+            return;
+        }
+
+        if (this.lastWheelTimeout) {
+            clearTimeout(this.lastWheelTimeout);
+        }
+
+        this.lastWheelTimeout = setTimeout(() => {
+            this.lastWheelTime = this.lastWheelTime - 10000;
+        }, 1500);
 
         // Não mexe a tela ao dar scroll
         event.preventDefault();
@@ -138,7 +172,7 @@ class App {
 
         this.touchList.push(event.touches[0].pageY);
 
-        if (this.touchList.length >= 10) {
+        if (this.touchList.length >= 5) {
             
             let firstPosition = this.touchList[0],
                 lastPosition  = this.touchList[this.touchList.length - 1],
