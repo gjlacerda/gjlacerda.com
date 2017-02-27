@@ -429,6 +429,9 @@ var App = function () {
 
             var distance = Math.abs(this.touchStart - this.touchEnd);
             alert(this.touchStart + ' ' + this.touchEnd + ' ' + distance);
+
+            this.touchEnd = 0;
+
             if (isNaN(distance) || distance < 50) {
                 return;
             }
