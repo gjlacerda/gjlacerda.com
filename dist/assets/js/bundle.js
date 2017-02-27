@@ -198,7 +198,7 @@ var App = function () {
 
             setTimeout(function () {
                 _this.loadingPage = false;
-            }, 600);
+            }, 1500);
 
             this.execCallbackPage();
 

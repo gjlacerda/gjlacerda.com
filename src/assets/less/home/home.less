@@ -16,7 +16,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('../../images/me.jpg');
+        background-image: url('../../images/me.xs.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -39,16 +39,16 @@
 
             h1
             {
-                font-size: 90px;
+                font-size: @title-size-xs;
                 text-indent: -6px;
                 letter-spacing: -5px;
-                margin-bottom: 25px;
+                margin-bottom: 15px;
                 line-height: 0.8;
             }
 
             p
             {
-                font-size: 16px;
+                font-size: @font-size-xs;
             }
 
             a
@@ -132,13 +132,14 @@
             h1
             {
                 text-indent: -9px;
-                font-size: 150px;
+                font-size: @title-size-sm;
                 letter-spacing: -8px;
+                margin-bottom: 25px;
             }
 
             p
             {
-                font-size: 18px;
+                font-size: @font-size-sm;
             }
         }
 
@@ -150,6 +151,11 @@
 
     @media (min-width: @screen-md)
     {
+        &:before
+        {
+            background-image: url('../../images/me.md.jpg');
+        }
+
         .home-footer
         {
             bottom: @breakpoint-edge-md;

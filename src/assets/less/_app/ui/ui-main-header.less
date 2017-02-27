@@ -70,7 +70,7 @@
             {
                 position: relative;
                 padding-bottom: 5px;
-                font-size: 17px;
+                font-size: @font-size-xs;
 
                 &:after
                 {
@@ -87,7 +87,7 @@
 
             &:not(:last-child)
             {
-                margin-right: 30px;
+                margin-right: 35px;
             }
 
             &.active
@@ -105,7 +105,7 @@
     &+.header-options
     {
         position: fixed;
-        top: calc(@breakpoint-edge-sm - 2px);
+        top: calc(@breakpoint-edge-sm);
         right: 20px;
         cursor: pointer;
         padding: 12px 0 12px 12px;
@@ -147,6 +147,11 @@
 
     @media (min-width: @screen-sm)
     {
+        .header-nav li a
+        {
+            font-size: 16px;
+        }
+
         &+.header-options
         {
             right: 5%;

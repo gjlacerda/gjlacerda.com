@@ -109,7 +109,7 @@ class App {
 
         setTimeout(() => {
             this.loadingPage = false;
-        }, 600);
+        }, 1500);
 
         this.execCallbackPage();
 
