@@ -172,7 +172,7 @@ class App {
 
         this.touchList.push(event.touches[0].pageY);
 
-        if (this.touchList.length >= 1) {
+        if (this.touchList.length >= 10) {
             
             let firstPosition = this.touchList[0],
                 lastPosition  = this.touchList[this.touchList.length - 1],
