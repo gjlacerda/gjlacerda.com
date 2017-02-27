@@ -158,8 +158,6 @@ var App = function () {
          * Lista com as posições do touch Y
          */
         this.touchList = [];
-
-        this.count = 0;
     }
 
     /**
@@ -215,13 +213,6 @@ var App = function () {
     }, {
         key: 'getPageOnScroll',
         value: function getPageOnScroll(event) {
-            console.log(event);
-            this.count++;
-
-            if (this.count > 4) {
-
-                this.count = 0;
-            }
 
             var direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV;
 
@@ -345,6 +336,11 @@ var App = function () {
                 this.changePage(nextPage);
             }
         }
+
+        /**
+         * Resta o touch
+         */
+
     }, {
         key: 'resetTouch',
         value: function resetTouch() {

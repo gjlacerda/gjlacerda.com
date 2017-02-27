@@ -75,8 +75,6 @@ class App {
          * Lista com as posições do touch Y
          */
         this.touchList = [];
-
-        this.count = 0;
     }
 
     /**
@@ -123,13 +121,6 @@ class App {
      * @param event
      */
     getPageOnScroll(event) {
-        console.log(event);
-        this.count++;
-
-        if (this.count > 4) {
-            
-            this.count = 0;
-        }
 
         let direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV;
 
@@ -232,7 +223,10 @@ class App {
             this.changePage(nextPage);
         }
     }
-    
+
+    /**
+     * Resta o touch
+     */
     resetTouch() {
         this.touchList = [];
     }
