@@ -292,7 +292,7 @@ class App {
     onTouchEnd() {
 
         let distance = Math.abs(this.touchStart - this.touchEnd);
-
+        alert(this.touchStart + ' ' + this.touchEnd + ' ' + distance);
         if (isNaN(distance) || distance < 50) {
             return;
         }
