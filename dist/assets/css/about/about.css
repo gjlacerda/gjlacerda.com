@@ -37,7 +37,6 @@
 .about .about-container {
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
 }
 .about .about-me {
   display: flex;

@@ -88,8 +88,6 @@ var DIRECTION = {
 
 var App = function () {
     function App() {
-        var _this = this;
-
         _classCallCheck(this, App);
 
         /**
@@ -173,18 +171,7 @@ var App = function () {
          */
         this.lastWheelTimeout = null;
 
-        this.$body.addEventListener('mousewheel', function () {
-            return _this.getPageOnScroll(event);
-        });
-        this.$body.addEventListener('touchstart', function () {
-            return _this.onTouchStart(event);
-        });
-        this.$body.addEventListener('touchmove', function () {
-            return _this.onTouchMove(event);
-        });
-        this.$body.addEventListener('touchend', function () {
-            return _this.onTouchEnd(event);
-        });
+        this.registerEvent();
     }
 
     /**
@@ -207,7 +194,7 @@ var App = function () {
     }, {
         key: 'changePage',
         value: function changePage(page) {
-            var _this2 = this;
+            var _this = this;
 
             var pageIndex = Object.keys(this.pages).indexOf(page),
                 translateY = -(window.innerHeight * pageIndex);
@@ -222,7 +209,7 @@ var App = function () {
             this.$mainContent.style.transform = 'translateY(' + translateY + 'px)';
 
             setTimeout(function () {
-                _this2.loadingPage = false;
+                _this.loadingPage = false;
             }, 600);
 
             this.execCallbackPage();
@@ -240,7 +227,7 @@ var App = function () {
     }, {
         key: 'getPageOnScroll',
         value: function getPageOnScroll(event) {
-            var _this3 = this;
+            var _this2 = this;
 
             var direction = event.deltaY > 0 ? DIRECTION.NEXT : DIRECTION.PREV,
                 timeNow = new Date().getTime(),
@@ -263,7 +250,7 @@ var App = function () {
             }
 
             this.lastWheelTimeout = setTimeout(function () {
-                _this3.lastWheelTime = _this3.lastWheelTime - 10000;
+                _this2.lastWheelTime = _this2.lastWheelTime - 10000;
             }, 1500);
 
             // Não mexe a tela ao dar scroll
@@ -386,19 +373,64 @@ var App = function () {
                 this.changePage(nextPage);
             }
         }
+
+        /**
+         * Registra os eventos
+         */
+
+    }, {
+        key: 'registerEvent',
+        value: function registerEvent() {
+            var _this3 = this;
+
+            this.$body.addEventListener('mousewheel', function () {
+                return _this3.getPageOnScroll(event);
+            });
+            this.$body.addEventListener('touchstart', function () {
+                return _this3.onTouchStart(event);
+            });
+            this.$body.addEventListener('touchmove', function () {
+                return _this3.onTouchMove(event);
+            });
+            this.$body.addEventListener('touchend', function () {
+                return _this3.onTouchEnd(event);
+            });
+        }
+
+        /**
+         * Evento touch start
+         * @param event
+         */
+
     }, {
         key: 'onTouchStart',
         value: function onTouchStart(event) {
             this.touchStart = event.touches[0].pageY;
         }
+
+        /**
+         * Evento touch move
+         * @param event
+         */
+
     }, {
         key: 'onTouchMove',
         value: function onTouchMove(event) {
             this.touchEnd = event.touches[0].pageY;
         }
+
+        /**
+         * Evento touch end
+         */
+
     }, {
         key: 'onTouchEnd',
         value: function onTouchEnd() {
+
+            if (Math.abs(this.touchStart - this.touchEnd) < 50) {
+                console.log('entrou');
+                return;
+            }
 
             var direction = this.touchStart > this.touchEnd ? DIRECTION.NEXT : DIRECTION.PREV;
 

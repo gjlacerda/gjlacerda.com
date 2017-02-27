@@ -88,10 +88,7 @@ class App {
          */
         this.lastWheelTimeout = null;
 
-        this.$body.addEventListener('mousewheel', () => this.getPageOnScroll(event));
-        this.$body.addEventListener('touchstart', () => this.onTouchStart(event));
-        this.$body.addEventListener('touchmove', () => this.onTouchMove(event));
-        this.$body.addEventListener('touchend', () => this.onTouchEnd(event));
+        this.registerEvent();
     }
 
     /**
@@ -263,16 +260,42 @@ class App {
         }
     }
 
+    /**
+     * Registra os eventos
+     */
+    registerEvent() {
+        this.$body.addEventListener('mousewheel', () => this.getPageOnScroll(event));
+        this.$body.addEventListener('touchstart', () => this.onTouchStart(event));
+        this.$body.addEventListener('touchmove', () => this.onTouchMove(event));
+        this.$body.addEventListener('touchend', () => this.onTouchEnd(event));
+    }
+
+    /**
+     * Evento touch start
+     * @param event
+     */
     onTouchStart(event) {
         this.touchStart = event.touches[0].pageY;
     }
 
+    /**
+     * Evento touch move
+     * @param event
+     */
     onTouchMove(event) {
         this.touchEnd = event.touches[0].pageY;
     }
 
+    /**
+     * Evento touch end
+     */
     onTouchEnd() {
 
+        if (Math.abs(this.touchStart - this.touchEnd) < 50) {
+            console.log('entrou');
+            return;
+        }
+        
         let direction = this.touchStart > this.touchEnd ? DIRECTION.NEXT : DIRECTION.PREV;
 
         this.changePageByDirection(direction);
