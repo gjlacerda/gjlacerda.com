@@ -106,6 +106,7 @@ p {
   position: relative;
   padding-bottom: 5px;
   font-size: 15px;
+  cursor: pointer;
 }
 .main-header .header-nav li a:after {
   content: "";
@@ -128,7 +129,6 @@ p {
 }
 .main-header + .header-options {
   position: fixed;
-  top: calc(38px);
   right: 20px;
   cursor: pointer;
   padding: 12px 0 12px 12px;
@@ -154,18 +154,16 @@ p {
   top: -7px;
 }
 @media (min-width: 600px) {
+  .main-header .header-nav ul li a {
+    font-size: 17px;
+  }
   .main-header + .header-options {
     right: 5%;
   }
 }
-@media (min-width: 992px) {
-  .main-header + .header-options {
-    top: calc(58px);
-  }
-}
-@media (min-width: 1415px) {
-  .main-header + .header-options {
-    top: calc(78px);
+@media (min-width: 480px) {
+  .main-header .header-nav ul li {
+    display: inline-flex;
   }
 }
 body.menu-active .header-options .line {

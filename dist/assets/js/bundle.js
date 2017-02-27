@@ -616,7 +616,7 @@ var Skills = function () {
                     setTimeout(function () {
                         _this2.animateElements(skill.canvas);
                         _this2.animateCanvas(skill);
-                    }, 300 * index);
+                    }, 400 * index);
                 });
             }, 400);
         }
@@ -633,7 +633,7 @@ var Skills = function () {
 
             this.render(skill);
 
-            skill.percent += 1;
+            skill.percent += 1.5;
         }
     }, {
         key: 'animateElements',

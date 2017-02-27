@@ -143,7 +143,7 @@ class Skills {
                 setTimeout(() => {
                     this.animateElements(skill.canvas);
                     this.animateCanvas(skill);
-                }, 300 * index);
+                }, 400 * index);
             });
         }, 400);
     }
@@ -156,7 +156,7 @@ class Skills {
 
         this.render(skill);
 
-        skill.percent += 1;
+        skill.percent += 1.5;
     }
 
     animateElements(element) {

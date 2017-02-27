@@ -6,20 +6,12 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    box-sizing: border-box;
+    padding-top: @breakpoint-edge-xs;
 
     .skills-container
     {
-        margin: 65px 0 0;
-
-        h1
-        {
-            display: none;
-            font-size: 20px;
-            text-align: center;
-            font-weight: 400;
-            color: #555;
-            margin-bottom: 30px;
-        }
+        margin: 0;
     }
 
     .skills-list
@@ -35,7 +27,7 @@
             flex-direction: column;
             flex-basis: 33.3333%;
             margin: 10px 0;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.5s ease-in-out;
             transition-property: opacity, transform;
             opacity: 0;
             transform: scale(0.8);
@@ -52,14 +44,11 @@
 
     @media (min-width: @screen-sm)
     {
+        padding-top: 0;
+
         .skills-container
         {
             margin: 0;
-
-            h1
-            {
-                display: block;
-            }
         }
 
         .skills-list li
