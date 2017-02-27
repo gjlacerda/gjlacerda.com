@@ -87,6 +87,11 @@ class App {
          * @type {null}
          */
         this.lastWheelTimeout = null;
+
+        this.$body.addEventListener('mousewheel', () => this.getPageOnScroll(event));
+        this.$body.addEventListener('touchstart', () => this.onTouchStart(event));
+        this.$body.addEventListener('touchmove', () => this.onTouchMove(event));
+        this.$body.addEventListener('touchend', () => this.onTouchEnd(event));
     }
 
     /**
@@ -258,11 +263,19 @@ class App {
         }
     }
 
-    /**
-     * Resta o touch
-     */
-    resetTouch() {
-        this.touchList = [];
+    onTouchStart(event) {
+        this.touchStart = event.touches[0].pageY;
+    }
+
+    onTouchMove(event) {
+        this.touchEnd = event.touches[0].pageY;
+    }
+
+    onTouchEnd() {
+
+        let direction = this.touchStart > this.touchEnd ? DIRECTION.NEXT : DIRECTION.PREV;
+
+        this.changePageByDirection(direction);
     }
 }
 
