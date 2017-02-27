@@ -170,6 +170,8 @@ class App {
      */
     getPageOnTouch(event) {
 
+        event.preventDefault();
+
         this.touchList.push(event.touches[0].pageY);
 
         if (this.touchList.length >= 1) {

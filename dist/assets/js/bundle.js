@@ -266,9 +266,11 @@ var App = function () {
         key: 'getPageOnTouch',
         value: function getPageOnTouch(event) {
 
+            event.preventDefault();
+
             this.touchList.push(event.touches[0].pageY);
 
-            if (this.touchList.length >= 10) {
+            if (this.touchList.length >= 1) {
 
                 var firstPosition = this.touchList[0],
                     lastPosition = this.touchList[this.touchList.length - 1],
