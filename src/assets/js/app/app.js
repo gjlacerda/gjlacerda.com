@@ -291,8 +291,9 @@ class App {
      */
     onTouchEnd() {
 
-        if (Math.abs(this.touchStart - this.touchEnd) < 50) {
-            console.log('entrou');
+        let distance = Math.abs(this.touchStart - this.touchEnd);
+
+        if (isNaN(distance) || distance < 50) {
             return;
         }
         
