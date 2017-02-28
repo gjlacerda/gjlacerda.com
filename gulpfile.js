@@ -1,11 +1,13 @@
 let gulp             = require('gulp');
 let less             = require('gulp-less');
+let autoprefixer     = require('gulp-autoprefixer');
 let concat           = require('gulp-concat');
 let watch            = require('gulp-watch');
 let fs               = require('fs');
 let fileinclude      = require('gulp-file-include');
+var uglify           = require('gulp-uglify');
+let cleanCSS         = require('gulp-clean-css');
 let webpack          = require('webpack');
-let webpackStream    = require('webpack-stream');
 let webpackConfig    = require('./webpack.config');
 var WebpackDevServer = require("webpack-dev-server");
 
@@ -37,17 +39,21 @@ let config = {
  */
 gulp.task('less', function() {
 
+    let src = [];
+
     fs.readdirSync(config.less.path).map(function(folder) {
-
-        let path = config.less.path + folder + '/' + folder + '.less',
-            dest = config.less.dest + folder;
-
-        return gulp.src(path)
-                   .pipe(less())
-                   .pipe(concat(folder + '.css'))
-                   .pipe(gulp.dest(dest));
+        let path = config.less.path + folder + '/' + folder + '.less';
+        src.push(path);
     });
 
+    gulp.src(src)
+        .pipe(less())
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(concat('bundle.css'))
+        .pipe(gulp.dest(config.less.dest));
 });
 
 /**
@@ -91,10 +97,6 @@ gulp.task('webpack', function() {
     webpack(webpackConfig, function() {
 
     });
-
-//     return gulp.src('./src/assets/js/main.js')
-//                .pipe(webpack(webpackConfig))
-//                .pipe(gulp.dest(config.js.dest));
 });
 
 /**
@@ -102,13 +104,37 @@ gulp.task('webpack', function() {
  */
 gulp.task('webpack-dev-server', function() {
 
-    new WebpackDevServer(webpack(webpackConfig), {
-
-    }).listen(8080, "localhost", function(err) {
+    new WebpackDevServer(webpack(webpackConfig), {}).listen(8080, "localhost", function(err) {
 
     });
+});
+
+/**
+ * Uglify JS
+ */
+gulp.task('uglifyjs', function() {
+
+    gulp.src(config.js.dest + 'bundle.js')
+        .pipe(uglify())
+        .pipe(gulp.dest(config.js.dest));
 
 });
+
+/**
+ * Uglify CSS
+ */
+gulp.task('uglifycss', function() {
+
+    gulp.src(config.less.dest + 'bundle.css')
+        .pipe(cleanCSS())
+        .pipe(gulp.dest(config.less.dest));
+
+});
+
+/**
+ * Production
+ */
+gulp.task('production', ['uglifyjs', 'uglifycss']);
 
 /**
  * DEFAULT
