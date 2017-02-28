@@ -175,7 +175,16 @@ class Skills {
             textX: 10 * PIXEL_RATIO,
         };
 
-        if (width >= 600) {
+        if (width >= 375) {
+            this.configSize = {
+                canvasWidth: 75,
+                lineWidth: 4,
+                font: 12 * PIXEL_RATIO,
+                textX: 10 * PIXEL_RATIO,
+            };
+        }
+
+        if (width >= 450) {
             this.configSize = {
                 canvasWidth: 90,
                 lineWidth: 4,
