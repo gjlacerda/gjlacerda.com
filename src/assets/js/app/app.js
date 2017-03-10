@@ -301,7 +301,7 @@ class App {
 
         let distance  = Math.abs(this.touchStart - this.touchEnd),
             direction = this.touchStart > this.touchEnd ? DIRECTION.NEXT : DIRECTION.PREV;
-        console.log(this.touchStart, this.touchEnd, distance);
+        
         if (isNaN(distance) || distance < 50) {
             return;
         }
