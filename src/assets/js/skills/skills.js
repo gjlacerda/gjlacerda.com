@@ -36,7 +36,7 @@ class Skills {
                 label: document.querySelector('.angular2-label'),
                 name: 'angular2',
                 percent: 0,
-                maxPercent: 60,
+                maxPercent: 75,
                 color: '254, 94, 65'
             }, {
                 canvas: document.getElementById('react'),
