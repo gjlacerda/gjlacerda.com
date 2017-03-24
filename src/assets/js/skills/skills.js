@@ -92,10 +92,13 @@ class Skills {
     }
 
     init() {
-        this.getConfigurationSize()
+        this.getConfigurationSize();
         this.configureElements();
     }
 
+    /**
+     * Seta tamanho e cores dos canvas
+     */
     configureElements() {
 
         this.skills.forEach(skill => {
@@ -107,6 +110,10 @@ class Skills {
         });
     }
 
+    /**
+     * Canvas render
+     * @param skill
+     */
     render(skill) {
 
         let $canvas = skill.canvas,
@@ -136,6 +143,9 @@ class Skills {
         ctx.fillText(extent + '%', ($canvas.width / 2) - this.configSize.textX, ($canvas.height / 2) + 10);
     }
 
+    /**
+     * Inicia a animação do canvas
+     */
     startAnimation() {
 
         setTimeout(() => {
@@ -164,52 +174,48 @@ class Skills {
         element.parentNode.style.opacity   = 1;
     }
 
+    /**
+     * Seta o tamanho do canvas de acordo com o tamanho da tela
+     */
     getConfigurationSize() {
 
         let width = window.innerWidth;
 
-        this.configSize = {
-            canvasWidth: 65,
-            lineWidth: 3,
-            font: 12 * PIXEL_RATIO,
-            textX: 10 * PIXEL_RATIO,
-        };
+        this.configSize = this.getConfigObject(65, 3, 12, 10);
 
         if (width >= 375) {
-            this.configSize = {
-                canvasWidth: 75,
-                lineWidth: 4,
-                font: 12 * PIXEL_RATIO,
-                textX: 10 * PIXEL_RATIO,
-            };
+            this.configSize = this.getConfigObject(75, 4, 12, 10);
         }
 
         if (width >= 450) {
-            this.configSize = {
-                canvasWidth: 90,
-                lineWidth: 4,
-                font: 12 * PIXEL_RATIO,
-                textX: 10 * PIXEL_RATIO,
-            };
+            this.configSize = this.getConfigObject(90, 4, 12, 10);
         }
 
         if (width >= 600) {
-            this.configSize = {
-                canvasWidth: 120,
-                lineWidth: 4,
-                font: 14 * PIXEL_RATIO,
-                textX: 10 * PIXEL_RATIO,
-            };
+            this.configSize = this.getConfigObject(120, 4, 14, 10);
         }
 
         if (width >= 1415) {
-            this.configSize = {
-                canvasWidth: 180,
-                lineWidth: 5,
-                font: 16 * PIXEL_RATIO,
-                textX: 12 * PIXEL_RATIO,
-            };
+            this.configSize = this.getConfigObject(180, 5, 16, 12);
         }
+    }
+
+    /**
+     * Retorna o objeto de configuração do canvas
+     * @param width
+     * @param lineWidth
+     * @param font
+     * @param textX
+     * @returns {{canvasWidth: *, lineWidth: *, font: number, textX: number}}
+     */
+    getConfigObject(width, lineWidth, font, textX) {
+
+        return {
+            canvasWidth: width,
+            lineWidth: lineWidth,
+            font: font * PIXEL_RATIO,
+            textX: textX * PIXEL_RATIO,
+        };
     }
 }
 
