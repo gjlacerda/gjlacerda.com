@@ -1,0 +1,52 @@
+@keyframes showIframe
+{
+    0%
+    {
+        visibility: hidden;
+    }
+
+    100%
+    {
+        visibility: visible;
+    }
+}
+
+@keyframes fadeIn
+{
+    0%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        opacity: 1;
+    }
+}
+
+body.modal-opened
+{
+    app-video-modal
+    {
+        display: block;
+        animation: fadeIn 0.3s forwards;
+
+        .player-iframe
+        {
+            animation: showIframe 0s 0.3s both;
+        }
+    }
+
+    .header-main
+    {
+        display: none;
+    }
+
+    @media (min-width: @screen-md)
+    {
+        .header-main
+        {
+            display: block;
+        }
+    }
+}
