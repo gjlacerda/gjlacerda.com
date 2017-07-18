@@ -117,7 +117,7 @@ class Skills {
     render(skill) {
 
         let $canvas = skill.canvas,
-            ctx     = $canvas.getContext("2d"),
+            ctx     = $canvas.getContext('2d'),
             pct     = skill.percent / 100,
             extent  = parseInt((skill.maxPercent) * pct),
             current = (skill.maxPercent) / 100 * PI2 * pct - QUART,

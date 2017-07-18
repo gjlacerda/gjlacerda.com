@@ -252,7 +252,7 @@ class App {
      */
     toggleMenu() {
         this.$body.classList.toggle('menu-active');
-    };
+    }
 
     /**
      * Troca de página de acordo com a direção
