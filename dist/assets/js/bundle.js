@@ -364,14 +364,14 @@ var App = function () {
         value: function toggleMenu() {
             this.$body.classList.toggle('menu-active');
         }
-    }, {
-        key: 'changePageByDirection',
-
 
         /**
          * Troca de página de acordo com a direção
          * @param direction
          */
+
+    }, {
+        key: 'changePageByDirection',
         value: function changePageByDirection(direction) {
 
             var nextPage = this.pages[this.page][direction];
@@ -592,7 +592,7 @@ var Skills = function () {
         value: function render(skill) {
 
             var $canvas = skill.canvas,
-                ctx = $canvas.getContext("2d"),
+                ctx = $canvas.getContext('2d'),
                 pct = skill.percent / 100,
                 extent = parseInt(skill.maxPercent * pct),
                 current = skill.maxPercent / 100 * PI2 * pct - QUART,
