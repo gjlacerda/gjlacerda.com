@@ -1,5 +1,6 @@
 import gulp from 'gulp';
 import less from 'gulp-less';
+import gutil from 'gulp-util';
 import autoprefixer from 'gulp-autoprefixer';
 import concat from 'gulp-concat';
 import fs from 'fs';
@@ -35,6 +36,7 @@ const config = {
 };
 
 gulp.task('js:lint', () => {
+
     return gulp.src(config.js.watch)
                .pipe(eslint({
                    useEslintrc: true
@@ -86,15 +88,23 @@ gulp.task('assets', function() {
 
 gulp.task('webpack', function() {
 
-    webpack(webpackConfig, function() {
-
+    webpack(webpackConfig, function(error) {
+        if (error) {
+            throw new gutil.PluginError("webpack", error);
+        }
     });
 });
 
 gulp.task('webpack-dev-server', function() {
 
-    new WebpackDevServer(webpack(webpackConfig), {}).listen(8080, "localhost", function(err) {
-
+    new WebpackDevServer(webpack(webpackConfig), {
+        stats: {
+            colors: true
+        }
+    }).listen(8080, "localhost", function(error) {
+        if (error) {
+            throw new gutil.PluginError("webpack-dev-server", err);
+        }
     });
 });
 
@@ -116,4 +126,4 @@ gulp.task('uglifycss', function() {
 
 gulp.task('production', ['uglifyjs', 'uglifycss']);
 
-gulp.task('default', ['less', 'watch', 'fileinclude', 'assets', 'webpack', 'webpack-dev-server']);
+gulp.task('default', ['less', 'watch', 'fileinclude', 'assets', 'webpack-dev-server']);
