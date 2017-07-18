@@ -6,6 +6,7 @@ import fs from 'fs';
 import fileinclude from 'gulp-file-include';
 import uglify from 'gulp-uglify';
 import cleanCSS from 'gulp-clean-css';
+import eslint from 'gulp-eslint';
 import webpack from 'webpack';
 import webpackConfig from './webpack.config';
 import WebpackDevServer from 'webpack-dev-server';
@@ -32,6 +33,15 @@ const config = {
         ]
     }
 };
+
+gulp.task('js:lint', () => {
+    return gulp.src(config.js.watch)
+               .pipe(eslint({
+                   useEslintrc: true
+               }))
+               .pipe(eslint.format())
+               .pipe(eslint.failAfterError());
+});
 
 gulp.task('less', function() {
 
@@ -69,7 +79,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('assets', function() {
-    
+
     gulp.src('./src/assets/images/*')
         .pipe(gulp.dest('./dist/assets/images'));
 });
