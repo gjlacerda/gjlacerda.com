@@ -1,17 +1,16 @@
-let gulp             = require('gulp');
-let less             = require('gulp-less');
-let autoprefixer     = require('gulp-autoprefixer');
-let concat           = require('gulp-concat');
-let watch            = require('gulp-watch');
-let fs               = require('fs');
-let fileinclude      = require('gulp-file-include');
-var uglify           = require('gulp-uglify');
-let cleanCSS         = require('gulp-clean-css');
-let webpack          = require('webpack');
-let webpackConfig    = require('./webpack.config');
-var WebpackDevServer = require("webpack-dev-server");
+import gulp from 'gulp';
+import less from 'gulp-less';
+import autoprefixer from 'gulp-autoprefixer';
+import concat from 'gulp-concat';
+import fs from 'fs';
+import fileinclude from 'gulp-file-include';
+import uglify from 'gulp-uglify';
+import cleanCSS from 'gulp-clean-css';
+import webpack from 'webpack';
+import webpackConfig from './webpack.config';
+import WebpackDevServer from 'webpack-dev-server';
 
-let config = {
+const config = {
     less: {
         path: './src/assets/less/',
         dest: './dist/assets/css/',
@@ -34,9 +33,6 @@ let config = {
     }
 };
 
-/**
- * LESS
- */
 gulp.task('less', function() {
 
     let src = [];
@@ -56,9 +52,6 @@ gulp.task('less', function() {
         .pipe(gulp.dest(config.less.dest));
 });
 
-/**
- * File include
- */
 gulp.task('fileinclude', function() {
 
     gulp.src(config.views.path)
@@ -69,29 +62,18 @@ gulp.task('fileinclude', function() {
         .pipe(gulp.dest(config.views.dest));
 });
 
-/**
- * Watch
- */
 gulp.task('watch', function() {
     gulp.watch(config.less.watch, ['less']);
     gulp.watch(config.views.watch, ['fileinclude']);
     gulp.watch(config.js.watch, ['webpack']);
 });
 
-/**
- * Move assets
- */
 gulp.task('assets', function() {
-
-    // Move imagens
+    
     gulp.src('./src/assets/images/*')
         .pipe(gulp.dest('./dist/assets/images'));
-
 });
 
-/**
- * Webpack
- */
 gulp.task('webpack', function() {
 
     webpack(webpackConfig, function() {
@@ -99,9 +81,6 @@ gulp.task('webpack', function() {
     });
 });
 
-/**
- * Webpack dev server
- */
 gulp.task('webpack-dev-server', function() {
 
     new WebpackDevServer(webpack(webpackConfig), {}).listen(8080, "localhost", function(err) {
@@ -109,9 +88,6 @@ gulp.task('webpack-dev-server', function() {
     });
 });
 
-/**
- * Uglify JS
- */
 gulp.task('uglifyjs', function() {
 
     gulp.src(config.js.dest + 'bundle.js')
@@ -120,9 +96,6 @@ gulp.task('uglifyjs', function() {
 
 });
 
-/**
- * Uglify CSS
- */
 gulp.task('uglifycss', function() {
 
     gulp.src(config.less.dest + 'bundle.css')
@@ -131,12 +104,6 @@ gulp.task('uglifycss', function() {
 
 });
 
-/**
- * Production
- */
 gulp.task('production', ['uglifyjs', 'uglifycss']);
 
-/**
- * DEFAULT
- */
 gulp.task('default', ['less', 'watch', 'fileinclude', 'assets', 'webpack', 'webpack-dev-server']);
