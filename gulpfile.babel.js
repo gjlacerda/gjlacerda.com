@@ -124,6 +124,6 @@ gulp.task('uglifycss', function() {
 
 });
 
-gulp.task('production', ['uglifyjs', 'uglifycss']);
+gulp.task('production', ['less', 'fileinclude', 'assets', 'uglifyjs', 'uglifycss']);
 
 gulp.task('default', ['less', 'watch', 'fileinclude', 'assets', 'webpack-dev-server']);
