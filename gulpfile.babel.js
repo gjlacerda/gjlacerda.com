@@ -1,16 +1,16 @@
 import gulp from 'gulp';
 import less from 'gulp-less';
-import gutil from 'gulp-util';
 import autoprefixer from 'gulp-autoprefixer';
 import concat from 'gulp-concat';
 import fs from 'fs';
-import fileinclude from 'gulp-file-include';
 import uglify from 'gulp-uglify';
 import cleanCSS from 'gulp-clean-css';
 import eslint from 'gulp-eslint';
-import webpack from 'webpack';
-import webpackConfig from './webpack.config';
-import WebpackDevServer from 'webpack-dev-server';
+
+import gulpProduction from './gulp/gulp-production';
+import gulpDefault from './gulp/gulp-default';
+import gulpMove from './gulp/gulp-move';
+import gulpFileInclude from './gulp/gulp-file-include';
 
 const config = {
     less: {
@@ -36,7 +36,6 @@ const config = {
 };
 
 gulp.task('js:lint', () => {
-
     return gulp.src(config.js.watch)
                .pipe(eslint({
                    useEslintrc: true
@@ -46,14 +45,11 @@ gulp.task('js:lint', () => {
 });
 
 gulp.task('less', function() {
-
-    let src = [];
-
+    const src = [];
     fs.readdirSync(config.less.path).map(function(folder) {
         let path = config.less.path + folder + '/' + folder + '.less';
         src.push(path);
     });
-
     gulp.src(src)
         .pipe(less())
         .pipe(autoprefixer({
@@ -64,66 +60,36 @@ gulp.task('less', function() {
         .pipe(gulp.dest(config.less.dest));
 });
 
-gulp.task('fileinclude', function() {
-
-    gulp.src(config.views.path)
-        .pipe(fileinclude({
-            prefix: '@@',
-            basepath: '@file'
-        }))
-        .pipe(gulp.dest(config.views.dest));
-});
-
 gulp.task('watch', function() {
     gulp.watch(config.less.watch, ['less']);
     gulp.watch(config.views.watch, ['fileinclude']);
-    gulp.watch(config.js.watch, ['webpack']);
-});
-
-gulp.task('assets', function() {
-
-    gulp.src('./src/assets/images/*')
-        .pipe(gulp.dest('./dist/assets/images'));
-});
-
-gulp.task('webpack', function() {
-
-    webpack(webpackConfig, function(error) {
-        if (error) {
-            throw new gutil.PluginError("webpack", error);
-        }
-    });
-});
-
-gulp.task('webpack-dev-server', function() {
-
-    new WebpackDevServer(webpack(webpackConfig), {
-        stats: {
-            colors: true
-        }
-    }).listen(8080, "localhost", function(error) {
-        if (error) {
-            throw new gutil.PluginError("webpack-dev-server", err);
-        }
-    });
 });
 
 gulp.task('uglifyjs', function() {
-
     gulp.src(config.js.dest + 'bundle.js')
         .pipe(uglify())
         .pipe(gulp.dest(config.js.dest));
-
 });
 
 gulp.task('uglifycss', function() {
-
     gulp.src(config.less.dest + 'bundle.css')
         .pipe(cleanCSS())
         .pipe(gulp.dest(config.less.dest));
-
 });
 
-gulp.task('production', ['less', 'fileinclude', 'assets', 'uglifyjs', 'uglifycss']);
+gulp.task('move:assets', () => {
+    gulpMove('./src/assets/images/*', './dist/assets/images');
+    gulpMove('./src/assets/js/main.js', './dist/assets/js/');
+});
 
-gulp.task('default', ['less', 'watch', 'fileinclude', 'assets', 'webpack-dev-server']);
+gulp.task('fileinclude', () => {
+    gulpFileInclude();
+});
+
+gulp.task('default', () => {
+    gulpDefault();
+});
+
+gulp.task('production', () => {
+    gulpProduction();
+});

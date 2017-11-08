@@ -60,14 +60,10 @@ class App {
          */
         this.pages = {
             home: {
-                next: 'skills'
-            },
-            skills: {
-                next: 'about',
-                prev: 'home'
+                next: 'about'
             },
             about: {
-                prev: 'skills',
+                prev: 'home',
             },
         };
 
@@ -93,7 +89,7 @@ class App {
          * @type {null}
          */
         this.touchStart = null;
-        this.touchEnd   = null;
+        this.touchEnd = null;
 
         this.registerEvent();
     }
@@ -301,7 +297,7 @@ class App {
 
         let distance  = Math.abs(this.touchStart - this.touchEnd),
             direction = this.touchStart > this.touchEnd ? DIRECTION.NEXT : DIRECTION.PREV;
-        
+
         if (isNaN(distance) || distance < 50) {
             return;
         }
@@ -310,4 +306,12 @@ class App {
     }
 }
 
-export default App;
+let app = new App();
+
+app.setMaxHeight();
+
+window.addEventListener('resize', () => {
+    app.setMaxHeight();
+});
+
+window.App = app;
